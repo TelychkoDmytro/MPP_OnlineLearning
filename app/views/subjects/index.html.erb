@@ -1,0 +1,13 @@
+<h1>Subject#index</h1>
+<p>Find me in app/views/subjects/index.html.erb</p>
+
+<h1>My Subjects</h1>
+<% if teacher_signed_in? %>
+  <%= link_to 'New Subject', new_subject_path %>
+<% end %>
+<ul>
+  <% @subjects.each do |subject| %>
+    <li><%= link_to subject.name, subject %></li>
+  <% end %>
+</ul>
+
