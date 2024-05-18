@@ -1,14 +1,2 @@
-<% if student_signed_in? %> 
- <div> Welcome <%= current_student.email %> </div> 
-  <%= button_to "Sign out", destroy_student_session_path, method: :delete %> 
-<% else %>
-  <%= button_to "Sign in", new_student_session_path %> 
-<% end %>
 
-<% if teacher_signed_in? %> 
- <div> Welcome <%= current_teacher.email %> </div> 
-  <%= button_to "Sign out", destroy_teacher_session_path, method: :delete %> 
-<% else %>
-  <%= button_to "Teacher Sign in", new_teacher_session_path %> 
-<% end %>
 <h1>Hello Home Page</h1>
