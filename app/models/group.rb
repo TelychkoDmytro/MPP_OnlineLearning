@@ -6,4 +6,6 @@ class Group < ApplicationRecord
 
 	validates :name, presence: true
 	validates :teacher, presence: true
+
+	accepts_nested_attributes_for :group_students
 end

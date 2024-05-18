@@ -26,6 +26,11 @@
     <%= form.collection_select :head_student_id, Student.all, :id, :full_name, prompt: true %>
   </div>
 
+  <div class="field">
+    <%= form.label :student_ids, "Select Students" %>
+    <%= form.collection_select :student_ids, Student.all, :id, :full_name, {}, { multiple: true, size: 10 } %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
