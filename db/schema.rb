@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_18_103834) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_18_115807) do
+  create_table "group_students", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id", "student_id"], name: "index_group_students_on_group_id_and_student_id", unique: true
+    t.index ["group_id"], name: "index_group_students_on_group_id"
+    t.index ["student_id"], name: "index_group_students_on_student_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "teacher_id", null: false
+    t.integer "head_student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["head_student_id"], name: "index_groups_on_head_student_id"
+    t.index ["teacher_id"], name: "index_groups_on_teacher_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.text "bio"
     t.integer "age"
