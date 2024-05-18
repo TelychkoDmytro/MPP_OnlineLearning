@@ -5,6 +5,7 @@ class Teacher < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Custom validation using regex
+  # validates :email, format: { with: /\A[^@\s]+@karazin\.ua\z/, message: "must be a karazin.ua email address" }
   validate :custom_email_validation
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -17,7 +18,7 @@ class Teacher < ApplicationRecord
     
     # Replace `email` with the attribute you want to validate
     unless email.match?(regex)
-      errors.add(:email, "must be an example.com email address")
+      errors.add(:email, "must be an karazin.ua email address")
     end
   end
 end
