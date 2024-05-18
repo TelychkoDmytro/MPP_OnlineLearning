@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_18_045728) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_18_061241) do
   create_table "students", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -19,7 +19,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_045728) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "group_id"
+    t.text "attended_classes", default: "--- []\n"
+    t.text "subscribed_classes", default: "--- []\n"
     t.index ["email"], name: "index_students_on_email", unique: true
+    t.index ["group_id"], name: "index_students_on_group_id"
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
 
@@ -31,8 +37,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_045728) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.text "assigned_groups", default: "--- []\n"
+    t.integer "subject_id"
     t.index ["email"], name: "index_teachers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
+    t.index ["subject_id"], name: "index_teachers_on_subject_id"
   end
 
 end
