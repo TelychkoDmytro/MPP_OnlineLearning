@@ -6,6 +6,8 @@ class Teacher < ApplicationRecord
 
   # Custom validation using regex
   validate :custom_email_validation
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   private
 
