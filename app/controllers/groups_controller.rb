@@ -39,6 +39,17 @@ class GroupsController < ApplicationController
     @students = @group.students
   end
 
+  def edit
+  end
+
+  def update
+    if @group.update(group_params)
+      redirect_to @group, notice: 'Group was successfully updated'
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_group
