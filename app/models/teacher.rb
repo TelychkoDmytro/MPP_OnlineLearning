@@ -13,7 +13,7 @@ class Teacher < ApplicationRecord
   has_many :groups
 
   has_many :subject_teacher, dependent: :destroy
-  has_many :subjects
+  has_many :subjects, through: :subjects_teacher
 
   def full_name
     "#{first_name} #{last_name}"
