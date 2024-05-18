@@ -1,0 +1,10 @@
+<h1><%= @profile.student.email %>'s Profile</h1>
+<p>
+  <strong>Bio:</strong>
+  <%= @profile.bio %>
+</p>
+<p>
+  <strong>Age:</strong>
+  <%= image_tag @profile.age if @profile.age.present? %>
+</p>
+<%= link_to 'Edit', edit_profile_path(@profile) %>

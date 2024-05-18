@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_18_061241) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_18_103834) do
+  create_table "profiles", force: :cascade do |t|
+    t.text "bio"
+    t.integer "age"
+    t.integer "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_profiles_on_student_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -24,6 +33,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_061241) do
     t.integer "group_id"
     t.text "attended_classes", default: "--- []\n"
     t.text "subscribed_classes", default: "--- []\n"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_students_on_confirmation_token", unique: true
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["group_id"], name: "index_students_on_group_id"
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
@@ -41,9 +55,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_061241) do
     t.string "last_name"
     t.text "assigned_groups", default: "--- []\n"
     t.integer "subject_id"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_teachers_on_confirmation_token", unique: true
     t.index ["email"], name: "index_teachers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
     t.index ["subject_id"], name: "index_teachers_on_subject_id"
   end
 
+  add_foreign_key "profiles", "students"
 end
