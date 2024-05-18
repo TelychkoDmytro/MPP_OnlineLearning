@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'login', to: 'login#new'
   get 'register', to: 'register#new'
+  get 'profile', to: 'profile#new'
 
   root to: "home#index"
 end
