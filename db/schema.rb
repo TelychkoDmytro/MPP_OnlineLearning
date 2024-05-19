@@ -13,8 +13,10 @@
 ActiveRecord::Schema[7.0].define(version: 2024_05_19_085241) do
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "head_student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["head_student_id"], name: "index_groups_on_head_student_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -55,5 +57,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_085241) do
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "groups", "students", column: "head_student_id"
   add_foreign_key "profiles", "students"
 end
