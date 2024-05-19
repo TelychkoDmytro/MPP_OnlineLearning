@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_19_085241) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_19_164154) do
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.integer "head_student_id"
@@ -43,6 +43,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_085241) do
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
 
+  create_table "subject_teachers", force: :cascade do |t|
+    t.integer "subject_id", null: false
+    t.integer "teacher_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_subject_teachers_on_subject_id"
+    t.index ["teacher_id"], name: "index_subject_teachers_on_teacher_id"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "teachers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -59,4 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_085241) do
 
   add_foreign_key "groups", "students", column: "head_student_id"
   add_foreign_key "profiles", "students"
+  add_foreign_key "subject_teachers", "subjects"
+  add_foreign_key "subject_teachers", "teachers"
 end
