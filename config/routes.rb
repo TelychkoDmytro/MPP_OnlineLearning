@@ -7,9 +7,7 @@ Rails.application.routes.draw do
   resources :subjects
 
   devise_for :teachers
-  devise_for :students, controllers: {
-    registrations: 'students/registrations'
-  }
+  devise_for :students
 
   get 'login', to: 'login#new'
   get 'register', to: 'register#new'

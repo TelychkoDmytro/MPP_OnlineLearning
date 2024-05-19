@@ -1,0 +1,17 @@
+<h1>Groups#show</h1>
+<p>Find me in app/views/groups/show.html.erb</p>
+
+<h1><%= @group.name %></h1>
+
+<h2>Teacher: <%= @group.teacher.full_name %></h2>
+<h2>Head Student: <%= @group.head_student&.full_name %></h2>
+
+<h3>Students</h3>
+<ul>
+  <% @group.students.each do |student| %>
+    <li><%= student.full_name %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_group_path %>
+<%= link_to 'Back', groups_path %>

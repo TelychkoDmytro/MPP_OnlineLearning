@@ -8,9 +8,9 @@ class Student < ApplicationRecord
   accepts_nested_attributes_for :profile
   after_create :create_student_profile
 
-  has_many :group_students
-  has_many :groups, through: :group_students
-  belongs_to :group, optional: true
+  # has_many :group_students
+  # has_many :groups, through: :group_students
+  # belongs_to :group, optional: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
