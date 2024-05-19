@@ -1,0 +1,24 @@
+<h1>Students#index</h1>
+<p>Find me in app/views/students/index.html.erb</p>
+
+<h1>Students without Group</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Student name</th>
+      <th>Group</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.first_name %></td>
+        <td><%= link_to student.group ? student.group.name : "No group", student.group%></td>
+        <td>
+        	<%= link_to "Edit", edit_student_path(student) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

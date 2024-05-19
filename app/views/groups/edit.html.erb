@@ -10,9 +10,9 @@
 
 	<div class="field">
 	    <%= form.label :head_student_id %>
-	    <%= form.collection_select :head_student_id, Student.where(group_id: @group.id), :id, :full_name, prompt: true %>
+	    <%= form.collection_select :head_student_id, Student.where(group_id: @group.id), :id, :full_name,  {include_blank: "Без старости" }, prompt: true %>
 	</div>
-	
+
 	<div class="actions">
 		<%= form.submit "Update" %>
 	</div>

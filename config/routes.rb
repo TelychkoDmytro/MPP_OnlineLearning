@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  # get 'students/index'
+  # get 'students/show'
+  # get 'students/edit'
   # get 'groups/index'
   # get 'groups/new'
   # get 'groups/create'
   # get 'groups/show'
+  resources :students
   resources :groups
   resources :subjects
 
