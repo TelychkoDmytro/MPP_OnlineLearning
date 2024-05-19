@@ -3,8 +3,7 @@
 
 <h1><%= @group.name %></h1>
 
-<%# <h2>Teacher: <%= @group.teacher.full_name %></h2> %>
-<%# <h2>Head Student: <%= @group.head_student&.full_name %></h2> %>
+<h2>Head Student: <%= @group.head_student&.full_name %></h2>
 
 <h3>Students</h3>
 <ul>
@@ -15,3 +14,4 @@
 
 <%= link_to 'Edit', edit_group_path %>
 <%= link_to 'Back', groups_path %>
+<%= button_to 'Delete Group', @group, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>

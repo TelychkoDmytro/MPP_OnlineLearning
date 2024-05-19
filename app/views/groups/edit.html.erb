@@ -7,6 +7,11 @@
 		<%= form.label :name %>
 		<%= form.text_field :name %>
 	</div>
+
+	<div class="field">
+	    <%= form.label :head_student_id %>
+	    <%= form.collection_select :head_student_id, Student.where(group_id: @group.id), :id, :full_name, prompt: true %>
+	</div>
 	
 	<div class="actions">
 		<%= form.submit "Update" %>
