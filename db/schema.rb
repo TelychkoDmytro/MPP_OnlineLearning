@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_19_164154) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_19_170108) do
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.integer "head_student_id"
@@ -25,6 +25,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_164154) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_profiles_on_student_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.datetime "time"
+    t.integer "teacher_id", null: false
+    t.integer "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_schedules_on_subject_id"
+    t.index ["teacher_id"], name: "index_schedules_on_teacher_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -74,6 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_164154) do
 
   add_foreign_key "groups", "students", column: "head_student_id"
   add_foreign_key "profiles", "students"
+  add_foreign_key "schedules", "subjects"
+  add_foreign_key "schedules", "teachers"
   add_foreign_key "subject_teachers", "subjects"
   add_foreign_key "subject_teachers", "teachers"
 end

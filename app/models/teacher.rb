@@ -15,6 +15,8 @@ class Teacher < ApplicationRecord
   has_many :subject_teacher, dependent: :destroy
   has_many :subjects, through: :subject_teacher
 
+  has_many :schedules
+
   def full_name
     "#{first_name} #{last_name}"
   end
