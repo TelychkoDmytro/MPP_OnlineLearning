@@ -1,14 +1,10 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_teacher!, except: [:index, :show]
+  before_action :authenticate_student!, except: [:index, :show]
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   
   def index
     if student_signed_in?
-      @groups = current_student.groups
-    elsif teacher_signed_in?
-      @groups = current_teacher.groups
-    else
-      puts "Error"
+      @groups = Group.all
     end
   end
 

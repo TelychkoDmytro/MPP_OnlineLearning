@@ -3,7 +3,7 @@
 
 <h1>My Groups</h1>
 <%# current_user.is_a?(Teacher)  %>
-<% if teacher_signed_in? %>
+<% if student_signed_in? %>
   <%= link_to 'New Group', new_group_path %>
 <% end %>
 <ul>

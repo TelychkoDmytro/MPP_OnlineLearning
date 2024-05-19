@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_18_103834) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_19_085241) do
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.text "bio"
     t.integer "student_id", null: false
@@ -29,7 +35,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_18_103834) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "group_id"
     t.index ["email"], name: "index_students_on_email", unique: true
+    t.index ["group_id"], name: "index_students_on_group_id"
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
 
