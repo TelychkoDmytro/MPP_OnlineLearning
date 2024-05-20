@@ -1,0 +1,39 @@
+<h1>Schedules#new</h1>
+<p>Find me in app/views/schedules/new.html.erb</p>
+
+<h1>New Schedule</h1>
+
+<%= form_with(model: @schedule, local: true) do |form| %>
+	<% if @schedule.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+		<ul>
+			<% @schedule.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+<div class="field">
+	<%= form.label :time %>
+	<%= form.datetime_field :time %>
+</div>
+
+<div class="field">
+	<%= form.label :teacher %>
+	<%= form.collection_select :teacher_id, Teacher.all, :id, :full_name, prompt: true %>
+</div>
+
+<div class="field">
+	<%= form.label :subject %>
+	<%= form.collection_select :subject_id, Subject.all, :id, :name, prompt: true %>
+</div>
+
+<div class="actions">
+	<%= form.submit %>
+</div>
+<% end %>
+
+<%#= link_to 'Back', groups_path %>
