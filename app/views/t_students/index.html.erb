@@ -16,7 +16,7 @@
         <td><%= student.first_name %></td>
         <td><%= link_to student.group ? student.group.name : "No group", student.group%></td>
         <td>
-        	<%= link_to "Edit", edit_student_path(student) %>
+        	<%= link_to "Edit", edit_t_student_path(student) %>
         </td>
       </tr>
     <% end %>

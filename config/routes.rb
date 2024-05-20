@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # get 'schedules/index'
+  # get 'schedules/show'
+  # get 'schedules/edit'
+  # get 'schedules/new'
   # get 'students/index'
   # get 'students/show'
   # get 'students/edit'
@@ -6,11 +10,12 @@ Rails.application.routes.draw do
   # get 'groups/new'
   # get 'groups/create'
   # get 'groups/show'
-  resources :students
+  resources :schedules
+  resources :t_students
   resources :groups
   resources :subjects
 
-  devise_for :teachers
+  devise_for :teachers, path: 'teachers'
   devise_for :students
 
   get 'login', to: 'login#new'
