@@ -1,7 +1,7 @@
 <h1>Students#edit</h1>
-<p>Find me in app/views/students/edit.html.erb</p>
+<p>Find me in app/views/t_students/edit.html.erb</p>
 
-<%= form_with(model: @student, local: true) do |form| %>
+<%= form_with(model: @student, url: t_student_path(@student), local: true) do |form| %>
 
 	<div class="field">
 	    <%= form.label :group %>

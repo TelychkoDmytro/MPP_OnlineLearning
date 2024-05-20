@@ -20,10 +20,7 @@ class TStudentsController < ApplicationController
   end
 
   def edit
-    unless current_student.nil?
-      flash[:notice] = "Access denied"
-      redirect_to root_path
-    end
+    Rails.logger.info "#{@student.inspect}"
   end
 
   def update
