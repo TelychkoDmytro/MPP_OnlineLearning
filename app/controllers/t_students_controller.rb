@@ -1,4 +1,4 @@
-class StudentsController < ApplicationController
+class TStudentsController < ApplicationController
   before_action :authenticate_teacher!, except: [:index, :show]
   before_action :set_student, only: [:edit, :update]
 
@@ -8,7 +8,14 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = Student.find(params[:id])
+    # unless current_teacher.nil? and (current_student.nil?)
+    if student_signed_in?
+      if current_student.id == @student.id
+        @student = Student.find(params[:id])
+      end
+    else
+      puts 
+    end
   end
 
   def edit
