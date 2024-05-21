@@ -1,24 +1,105 @@
-<h1>Students#index</h1>
-<p>Find me in app/views/students/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students without Group</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .table-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .table-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .table-header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-container">
+    <div class="table-header">
+      <h1>Students without Group</h1>
+      <p>Find me in app/views/students/index.html.erb</p>
+    </div>
 
-<h1>Students without Group</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Student name</th>
-      <th>Group</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.first_name %></td>
-        <td><%= link_to student.group ? student.group.name : "No group", student.group%></td>
-        <td>
-        	<%= link_to "Edit", edit_t_student_path(student) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="filter-container">
+      <div class="form-student">
+        <label for="filter-in_group"></label>
+        <div>
+          <input type="radio" id="all" name="group_id" value="" class="filter-input" checked> All
+          <input type="radio" id="in_group" name="group_id" value="in_group" class="filter-input"> In Group
+          <input type="radio" id="without_group" name="group_id" value="without_group" class="filter-input"> Without Group
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Group</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.first_name %></td>
+            <td><%= link_to student.group ? student.group.name : "No Group", student.group %></td>
+            <td>
+              <%= link_to "Edit", edit_t_student_path(student), class: 'btn btn-primary' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const filterInputs = document.querySelectorAll('.filter-input');
+
+      filterInputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+          const groupValue = this.value;
+          const studentRows = document.querySelectorAll('tbody tr');
+
+          studentRows.forEach(function(row) {
+            if (groupValue === 'in_group') {
+              if (row.querySelector('td:nth-child(2) a').innerText === 'No Group') {
+                row.style.display = 'none';
+              } else {
+                row.style.display = '';
+              }
+            } else if (groupValue === 'without_group') {
+              if (row.querySelector('td:nth-child(2) a').innerText !== 'No Group') {
+                row.style.display = 'none';
+              } else {
+                row.style.display = '';
+              }
+            } else {
+              row.style.display = '';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

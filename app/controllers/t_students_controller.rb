@@ -43,14 +43,14 @@ class TStudentsController < ApplicationController
 
   def check_access_for_edit
     if student_signed_in?
-      flash[:notice] = "Access denied"
+      flash[:alert] = "Access denied"
       redirect_to t_students_path
     elsif teacher_signed_in?
       # Allow access to the edit action if the teacher is signed in
       authenticate_teacher!
     else
       # Handle the case where no user is signed in
-      flash[:alert] = "You need to sign in as a teacher to access this page"
+      flash[:notice] = "You need to sign in as a teacher to access this page"
       redirect_to new_teacher_session_path
     end
   end
