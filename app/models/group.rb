@@ -4,6 +4,9 @@ class Group < ApplicationRecord
 	has_many :students, dependent: :destroy
 	# has_many :students, through: :group_students
 
+	has_many :group_schedule, dependent: :destroy
+	has_many :schedules, through: :group_schedule
+
 	validates :name, presence: true
 	validate :head_student_belongs_to_group
 	# validates :teacher, presence: true
