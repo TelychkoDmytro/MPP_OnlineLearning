@@ -1,11 +1,79 @@
-<h1>Groups#index</h1>
-<p>Find me in app/views/groups/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groups</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .groups-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .groups-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .groups-header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    .btn-new-group {
+      margin-bottom: 20px;
+      background-color: #28a745;
+      color: white;
+    }
+    .table {
+      margin-top: 20px;
+    }
+    .table th,
+    .table td {
+      text-align: center;
+    }
+    .table thead th {
+      background-color: #28a745;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="groups-container">
+    <div class="groups-header">
+      <h1>My Groups</h1>
+      <p>Find me in app/views/groups/index.html.erb</p>
+    </div>
 
-<h1>My Groups</h1>
-<%= link_to 'New Group', new_group_path %>
-<ul>
-  <% @groups.each do |group| %>
-    <li><%= link_to group.name, group %></li>
-  <% end %>
-</ul>
+    <%= link_to 'New Group', new_group_path, class: 'btn btn-new-group' %>
 
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Group Name</th>
+          <th>Head Student</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @groups.each do |group| %>
+          <tr>
+            <td><%= link_to group.name, group, class: "btn active btn-light btn-block"%></td>
+            <% unless group.head_student.nil? %>
+              <td><%= group.head_student.full_name %></td>              
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

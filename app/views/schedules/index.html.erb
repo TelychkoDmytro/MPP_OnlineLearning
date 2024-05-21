@@ -130,6 +130,7 @@
           <th>Teacher</th>
           <th>Groups</th>
           <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -138,7 +139,7 @@
           <% schedule_month = schedule.time.strftime("%B %Y") %>
           <% if schedule_month != current_month %>
             <tr class="month-separator">
-              <td colspan="6"><%= schedule_month %></td>
+              <td colspan="7"><%= schedule_month %></td>
             </tr>
             <% current_month = schedule_month %>
           <% end %>

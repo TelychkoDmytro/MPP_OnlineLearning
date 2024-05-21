@@ -1,17 +1,81 @@
-<h1>Groups#show</h1>
-<p>Find me in app/views/groups/show.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @group.name %> - Group Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .group-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .group-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .group-header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    .head-student {
+      margin-bottom: 20px;
+    }
+    .students-list {
+      list-style: none;
+      padding: 0;
+    }
+    .students-list li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="group-container">
+    <div class="group-header">
+      <h1><%= @group.name %></h1>
+      <p>Find me in app/views/groups/show.html.erb</p>
+    </div>
 
-<h1><%= @group.name %></h1>
+    <div class="head-student">
+      <h2>Head Student: <%= @group.head_student&.full_name %></h2>
+    </div>
 
-<h2>Head Student: <%= @group.head_student&.full_name %></h2>
+    <div class="students">
+      <h3>Students</h3>
+      <ul class="students-list">
+        <% @group.students.each do |student| %>
+          <li><%= student.full_name %></li>
+        <% end %>
+      </ul>
+    </div>
 
-<h3>Students</h3>
-<ul>
-  <% @group.students.each do |student| %>
-    <li><%= student.full_name %></li>
-  <% end %>
-</ul>
-
-<%= link_to 'Edit', edit_group_path %>
-<%= link_to 'Back', groups_path %>
-<%= button_to 'Delete Group', @group, method: :delete, class: 'button is-danger', onclick: "return confirm('Are you sure?');" %>
+    <div class="buttons">
+      <%= link_to 'Edit', edit_group_path(@group), class: 'btn btn-primary' %>
+      <%= link_to 'Back', groups_path, class: 'btn btn-secondary' %>
+      <%= button_to 'Delete Group', @group, method: :delete, class: 'btn btn-danger', onclick: "return confirm('Are you sure?');" %>
+    </div>
+  </div>
+</body>
+</html>
