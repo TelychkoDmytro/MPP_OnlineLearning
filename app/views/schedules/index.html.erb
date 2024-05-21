@@ -154,7 +154,14 @@
                 <% end %>
               <% end %>
             </td>
-            <td><%= link_to "Edit", edit_schedule_path(schedule),  class: "btn btn-success" %></td>
+            <td>
+			  <div class="btn-group" role="group">
+			    <%= link_to "Edit", edit_schedule_path(schedule), class: "btn btn-success btn-sm" %>
+			    <%= button_to "Cancel", schedule, method: :delete, class: 'btn btn-danger btn-sm', onclick: "return confirm('Are you sure?');" %>
+			  </div>
+			</td>
+
+            <td></td>
           </tr>
         <% end %>
       </tbody>

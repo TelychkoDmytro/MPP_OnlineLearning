@@ -14,4 +14,4 @@
 
 <%= link_to 'Edit', edit_group_path %>
 <%= link_to 'Back', groups_path %>
-<%= button_to 'Delete Group', @group, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+<%= button_to 'Delete Group', @group, method: :delete, class: 'button is-danger', onclick: "return confirm('Are you sure?');" %>
