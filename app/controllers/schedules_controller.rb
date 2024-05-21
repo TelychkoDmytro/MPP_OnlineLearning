@@ -14,6 +14,14 @@ class SchedulesController < ApplicationController
   def edit
   end
 
+  def update
+    if @schedule.update(schedule_params)
+      redirect_to schedules_path
+    else
+      render :edit
+    end
+  end
+
   def new
     @schedule = Schedule.new
   end
