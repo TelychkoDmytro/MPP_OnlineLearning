@@ -22,6 +22,12 @@ class SchedulesController < ApplicationController
     end
   end
 
+  def destroy
+    if @schedule.destroy
+      redirect_to @schedule, notice: 'Schedule was canceled'
+    end
+  end
+
   def new
     @schedule = Schedule.new
   end

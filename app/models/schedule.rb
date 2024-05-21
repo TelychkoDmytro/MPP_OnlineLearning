@@ -8,6 +8,9 @@ class Schedule < ApplicationRecord
   validate :teacher_must_teach_subject
   validates :schedule_type, inclusion: {in: ['lecture', 'practic']}
 
+  validates :schedule_type, presence: true
+  validates :group_ids, presence: true
+
   private
 
   def teacher_must_teach_subject
