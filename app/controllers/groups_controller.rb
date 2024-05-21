@@ -52,7 +52,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :head_student_id, student_ids: [])
+    params.require(:group).permit(:name, :head_student_id, student_ids: [], schedule_ids: [])
   end
 
   def check_access_for_index_and_new

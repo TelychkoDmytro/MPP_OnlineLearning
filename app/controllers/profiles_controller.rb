@@ -9,8 +9,6 @@ class ProfilesController < ApplicationController
 	end
 
 	def update
-		puts "HEREHEREHEREHEREHEREHEREHEREHEREHEREHERE"
-		puts params[:profile] # To see the submitted parameters in the server log
 		if @profile.update(profile_params)
 			redirect_to @profile, notice: "Profile was successsfully updated"
 		else

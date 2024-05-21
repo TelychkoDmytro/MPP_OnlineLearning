@@ -1,28 +1,129 @@
-<h1>Update Profile</h1>
-
-<%= form_for(@profile) do |f| %>
-  <% if @profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-      <ul>
-        <% @profile.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .field input[type="text"],
+    .field input[type="email"],
+    .field textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .actions {
+      text-align: center;
+    }
+    .actions input[type="submit"] {
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .actions input[type="submit"]:hover {
+      background: #0056b3;
+    }
+    #error_explanation {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    #error_explanation h2 {
+      margin: 0 0 10px;
+    }
+    #error_explanation ul {
+      padding: 0;
+      list-style: none;
+    }
+    #error_explanation ul li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Update Profile</h1>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :bio %><br>
-    <%= f.text_area :bio %>
-  </div>
+    <%= form_for(@profile) do |f| %>
+      <% if @profile.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+          <ul>
+            <% @profile.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="field">
-    <%= f.label :age %><br>
-    <%= f.text_field :age %>
-  </div>
+      <div class="field">
+        <%= f.label :bio %>
+        <%= f.text_area :bio %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Save changes" %>
+      <div class="field">
+        <%= f.fields_for :student do |student_fields| %>
+          <%= student_fields.label :first_name %>
+          <%= student_fields.text_field :first_name %>
+        </div>
+
+        <div class="field">
+          <%= student_fields.label :last_name %>
+          <%= student_fields.text_field :last_name %>
+        </div>
+
+        <div class="field">
+          <%= student_fields.label :email %>
+          <%= student_fields.email_field :email %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Save changes" %>
+        <%= button_to 'Cancel', profile_path, class: 'btn btn-danger' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</body>
+</html>

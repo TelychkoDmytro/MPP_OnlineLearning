@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_19_170108) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_21_061537) do
+  create_table "group_schedules", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "schedule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_schedules_on_group_id"
+    t.index ["schedule_id"], name: "index_group_schedules_on_schedule_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.integer "head_student_id"
@@ -33,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_170108) do
     t.integer "subject_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "schedule_type"
     t.index ["subject_id"], name: "index_schedules_on_subject_id"
     t.index ["teacher_id"], name: "index_schedules_on_teacher_id"
   end
@@ -82,6 +92,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_19_170108) do
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "group_schedules", "groups"
+  add_foreign_key "group_schedules", "schedules"
   add_foreign_key "groups", "students", column: "head_student_id"
   add_foreign_key "profiles", "students"
   add_foreign_key "schedules", "subjects"

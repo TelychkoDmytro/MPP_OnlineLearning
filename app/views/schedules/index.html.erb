@@ -1,2 +1,164 @@
-<h1>Schedules#index</h1>
-<p>Find me in app/views/schedules/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedules</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .schedule-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .schedule-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .schedule-header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    .table {
+      margin-top: 20px;
+    }
+    .table th,
+    .table td {
+      text-align: center;
+    }
+    .table thead th {
+      background-color: #007bff;
+      color: #fff;
+    }
+    .month-separator {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+    }
+    .filter-container {
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    function applyFilters() {
+      const schedule_type = document.querySelector('input[name="schedule_type"]:checked')?.value;
+      const month = document.getElementById('filter-month').value;
+      const group = document.getElementById('filter-group').value;
+      
+      const rows = document.querySelectorAll('.schedule-row');
+      
+      rows.forEach(row => {
+        const rowType = row.getAttribute('data-schedule_type');
+        const rowMonth = row.getAttribute('data-month');
+        const rowGroups = row.getAttribute('data-groups').split(',');
+        
+        const typeMatch = !schedule_type || rowType === schedule_type || rowType === '';
+        const monthMatch = !month || rowMonth === month;
+        const groupMatch = !group || rowGroups.includes(group) || rowGroups.includes('');
+        
+        if (typeMatch && monthMatch && groupMatch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.filter-input').forEach(input => {
+        input.addEventListener('change', applyFilters);
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="schedule-container">
+    <div class="schedule-header">
+      <h1>Schedules</h1>
+      <p>Find me in app/views/schedules/index.html.erb</p>
+      <% if teacher_signed_in? %>
+      	<%= link_to 'Schedule class', new_schedule_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    
+    <div class="filter-container">
+      <div class="form-group">
+        <label for="filter-schedule_type">Type:</label>
+        <div>
+          <input type="radio" id="all" name="schedule_type" value="" class="filter-input" checked> All
+          <input type="radio" id="lectures" name="schedule_type" value="lecture" class="filter-input"> Lectures
+          <input type="radio" id="practics" name="schedule_type" value="practic" class="filter-input"> Practics
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="filter-month">Month:</label>
+        <select id="filter-month" class="form-control filter-input">
+          <option value="">All</option>
+          <% @schedules.map { |s| s.time.strftime("%B %Y") }.uniq.each do |month| %>
+            <option value="<%= month %>"><%= month %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="filter-group">Group:</label>
+        <select id="filter-group" class="form-control filter-input">
+          <option value="">All</option>
+          <% @schedules.flat_map(&:groups).uniq.each do |group| %>
+            <option value="<%= group.name %>"><%= group.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>Type</th>
+          <th>Subject</th>
+          <th>Teacher</th>
+          <th>Groups</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% current_month = nil %>
+        <% @schedules.sort_by(&:time).reverse.each do |schedule| %>
+          <% schedule_month = schedule.time.strftime("%B %Y") %>
+          <% if schedule_month != current_month %>
+            <tr class="month-separator">
+              <td colspan="6"><%= schedule_month %></td>
+            </tr>
+            <% current_month = schedule_month %>
+          <% end %>
+          <tr class="schedule-row" data-schedule_type="<%= schedule.schedule_type %>" data-month="<%= schedule_month %>" data-groups="<%= schedule.groups.map(&:name).join(',') %>">
+            <td><%= schedule.time.strftime("%d %b %H:%M") %></td>
+            <td><%= schedule.schedule_type || '' %></td>
+            <td><%= schedule.subject.name %></td>
+            <td><%= schedule.teacher.full_name %></td>
+            <td>
+              <% if schedule.groups.any? %>
+                <% schedule.groups.each do |group| %>
+                  <%= group.name %><br>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= link_to "Edit", edit_schedule_path(schedule),  class: "btn btn-success" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

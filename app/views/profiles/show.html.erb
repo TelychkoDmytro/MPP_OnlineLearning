@@ -1,10 +1,138 @@
-<h1><%= @profile.student.email %>'s Profile</h1>
-<p>
-  <strong>Bio:</strong>
-  <%= @profile.bio %>
-</p>
-<p>
-  <strong>Age:</strong>
-  <%= image_tag @profile.age if @profile.age.present? %>
-</p>
-<%= link_to 'Edit', edit_profile_path(@profile) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .profile-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    .profile-header p {
+      color: #666;
+    }
+    .profile-info {
+      margin-bottom: 20px;
+    }
+    .profile-info strong {
+      display: inline-block;
+      width: 100px;
+      color: #333;
+    }
+    .profile-info p {
+      margin: 5px 0;
+    }
+    .profile-group {
+      list-style: none;
+      padding: 0;
+    }
+    .profile-group li {
+      display: flex;
+      justify-content: space-between;
+      background: #e9ecef;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+    .profile-actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .profile-actions a,
+    .profile-actions button {
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .profile-actions button {
+      background: #dc3545;
+    }
+    .sort-menu {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+  </style>
+  <script>
+    function sortStudents() {
+      const sortOption = document.getElementById('sort-options').value;
+      const groupList = document.getElementById('group-list');
+      let students = Array.from(groupList.getElementsByTagName('li'));
+
+      students.sort((a, b) => {
+        const nameA = a.getAttribute('data-name').toUpperCase();
+        const nameB = b.getAttribute('data-name').toUpperCase();
+        const emailA = a.getAttribute('data-email').toUpperCase();
+        const emailB = b.getAttribute('data-email').toUpperCase();
+
+        if (sortOption === 'name') {
+          return nameA.localeCompare(nameB);
+        } else if (sortOption === 'email') {
+          return emailA.localeCompare(emailB);
+        }
+      });
+
+      groupList.innerHTML = '';
+      students.forEach(student => groupList.appendChild(student));
+    }
+  </script>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <h1><%= @profile.student.email %>'s Profile</h1>
+      <p>Welcome to your profile page</p>
+    </div>
+    <div class="profile-info">
+      <p><strong>Bio:</strong> <%= @profile.bio %></p>
+      <p><strong>Name:</strong> <%= current_student.full_name %></p>
+      <p><strong>Email:</strong> <%= current_student.email %></p>
+      <div class="sort-menu">
+        <label for="sort-options">Sort by: </label>
+        <select id="sort-options" onchange="sortStudents()">
+          <option value="name">Name</option>
+          <option value="email">Email</option>
+        </select>
+      </div>
+      <p><strong>My Group:</strong></p>
+      <ul class="profile-group" id="group-list">
+        <% current_student.group.students.each do |student| %>
+          <li data-name="<%= student.full_name %>" data-email="<%= student.email %>">
+            <span><%= student.full_name %></span>
+            <span><%= student.email %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="profile-actions">
+      <%= link_to 'Edit Profile', edit_profile_path(@profile), class: 'btn btn-primary' %>
+      <%= button_to 'Sign Out', destroy_student_session_path, method: :delete, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</body>
+</html>

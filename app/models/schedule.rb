@@ -6,6 +6,7 @@ class Schedule < ApplicationRecord
   has_many :groups, through: :group_schedule
 
   validate :teacher_must_teach_subject
+  validates :schedule_type, inclusion: {in: ['lecture', 'practic']}
 
   private
 
