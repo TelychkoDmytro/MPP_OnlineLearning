@@ -1,5 +1,5 @@
 class SchedulesController < ApplicationController
-  before_action :authenticate_teacher, only: [:edit, :new]
+  before_action :authenticate_teacher, only: [:edit, :new, :destroy]
   before_action :atuhencticate, except: [:index, :show]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
   
