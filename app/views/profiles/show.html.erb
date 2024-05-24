@@ -112,22 +112,26 @@
       <p><strong>Bio:</strong> <%= @profile.bio %></p>
       <p><strong>Name:</strong> <%= current_student.full_name %></p>
       <p><strong>Email:</strong> <%= current_student.email %></p>
-      <div class="sort-menu">
-        <label for="sort-options">Sort by: </label>
-        <select id="sort-options" onchange="sortStudents()">
-          <option value="name">Name</option>
-          <option value="email">Email</option>
-        </select>
-      </div>
-      <p><strong>My Group:</strong></p>
-      <ul class="profile-group" id="group-list">
-        <% current_student.group.students.each do |student| %>
-          <li data-name="<%= student.full_name %>" data-email="<%= student.email %>">
-            <span><%= student.full_name %></span>
-            <span><%= student.email %></span>
-          </li>
-        <% end %>
-      </ul>
+      <% unless current_student.group.nil? %>
+        <div class="sort-menu">
+          <label for="sort-options">Sort by: </label>
+          <select id="sort-options" onchange="sortStudents()">
+            <option value="name">Name</option>
+            <option value="email">Email</option>
+          </select>
+        </div>
+        <p><strong>My Group:</strong></p>
+        <ul class="profile-group" id="group-list">
+            <% current_student.group.students.each do |student| %>
+              <li data-name="<%= student.full_name %>" data-email="<%= student.email %>">
+                <span><%= student.full_name %></span>
+                <span><%= student.email %></span>
+              </li>
+            <% end %>
+        </ul>
+      <% else %>
+        <p>You currently not in any group. Please, contact someone.</p>
+      <% end %>
     </div>
     <div class="profile-actions">
       <%= link_to 'Edit Profile', edit_profile_path(@profile), class: 'btn btn-primary' %>
