@@ -23,13 +23,18 @@
       </ul>
       <% if student_signed_in? %>
         <ul class="navbar-nav">
-            <li class="nav-item">
-              <%= link_to "Schedule", schedules_path, class: "nav-link"%>
-           </li>
-           <li class="nav-item">
-              <%= link_to "My Profile", current_student.profile, class: "nav-link"%>
-           </li>
-        </ul>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link_to "Schedule", schedules_path, class: "dropdown-item"%>
+                    <%= link_to "My Profile", edit_student_registration_path , class: "dropdown-item"%>
+                      <div class="dropdown-divider"></div>
+                      <%= button_to "Logout", destroy_student_session_path, method: :delete, class: 'dropdown-item' %>
+                  </div>
+              </li>
+          </ul>
       <% elsif teacher_signed_in? %>
         <ul class="navbar-nav">
           <li class="nav-item">
