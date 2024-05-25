@@ -7,8 +7,8 @@ class Subject < ApplicationRecord
 	has_many :group_subject, dependent: :destroy
 	has_many :groups, through: :group_subject
 
-	has_many :scores, dependent: :destroy
-	has_many :students, through: :scores
+	has_many :tasks, dependent: :destroy
+	has_many :students, through: :tasks
 
 	has_many :schedules
 

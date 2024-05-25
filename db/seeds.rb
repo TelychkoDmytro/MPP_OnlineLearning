@@ -142,41 +142,6 @@ schedules = Schedule.create([
   
 ])
 
-teachers[1].subjects.each do |s|
-  puts s.name
-  s.groups.each do |g|
-    puts g.name
-  end
-  puts
-end
-
-puts "Second"
-teachers[2].subjects.each do |s|
-  puts s.name
-  s.groups.each do |g|
-    puts g.name
-  end
-  puts
-end
-
-puts "Third"
-teachers[3].subjects.each do |s|
-  puts s.name
-  s.groups.each do |g|
-    puts g.name
-  end
-  puts
-end
-
-puts "Fourth"
-teachers[4].subjects.each do |s|
-  puts s.name
-  s.groups.each do |g|
-    puts g.name
-  end
-  puts
-end
-
 # groups[0].schedules << schedules[0]
 # groups[0].schedules << schedules[1]
 # groups[0].schedules << schedules[2]

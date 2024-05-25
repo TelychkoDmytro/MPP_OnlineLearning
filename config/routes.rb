@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :schedules
   resources :groups
-  resources :subjects
+  resources :subjects do
+    resources :tasks
+  end
 
   devise_for :teachers, controllers: {
     registrations: 'teachers/registrations'

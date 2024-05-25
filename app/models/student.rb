@@ -16,8 +16,8 @@ class Student < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  has_many :scores, dependent: :destroy
-  has_many :subjects, through: :scores
+  has_many :tasks, dependent: :destroy
+  has_many :subjects, through: :tasks
 
   has_one_attached :avatar
 
