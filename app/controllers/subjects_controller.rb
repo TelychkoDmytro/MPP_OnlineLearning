@@ -22,6 +22,7 @@ class SubjectsController < ApplicationController
     if @subject.save
       redirect_to @subject, notice: 'Subject was successfuly created'
     else
+      flash.now[:alert] = "Subject '#{subject_params[:name]}' already exists."
       render :new
     end
   end
@@ -33,6 +34,14 @@ class SubjectsController < ApplicationController
   def edit
   end
 
+  def update
+    if @subject.update(subject_params)
+      redirect_to @subject
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_subject
@@ -40,6 +49,6 @@ class SubjectsController < ApplicationController
   end
 
   def subject_params
-    params.require(:subject).permit(:name)
+    params.require(:subject).permit(:name, :head_teacher_id, teacher_ids: [], student_ids: [], group_ids: [])
   end
 end

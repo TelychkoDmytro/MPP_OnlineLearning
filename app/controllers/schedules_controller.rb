@@ -68,7 +68,7 @@ class SchedulesController < ApplicationController
     if student_signed_in?
       flash[:alert] = "Access denied. Only teachers can create and add schedules"
       redirect_to schedules_path
-    elsif teacher_signed_in?
+    elsif !teacher_signed_in?
       authenticate_teacher!
     end
   end

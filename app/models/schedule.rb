@@ -9,7 +9,7 @@ class Schedule < ApplicationRecord
   validates :schedule_type, inclusion: {in: ['lecture', 'practic']}
 
   validates :schedule_type, presence: true
-  validates :group_ids, presence: true
+  # validates :group_ids, presence: true
 
   private
 

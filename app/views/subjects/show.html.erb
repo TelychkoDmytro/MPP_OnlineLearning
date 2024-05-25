@@ -6,8 +6,16 @@
 <h3>Teachers</h3>
 <ul>
   <% @subject.teachers.each do |teacher| %>
-    <li><%= teacher.full_name %></li>
+  <li>
+    <% if teacher.id == @subject.head_teacher.id %>
+    <p>Head Teacher</p>
+    <% end %>
+    <%= teacher.full_name %>
+  </li>
   <% end %>
 </ul>
 
+<% if current_teacher.id == @subject.head_teacher.id %>
+<%= link_to "Edit" , edit_subject_path %>
+<% end %>
 <%= link_to 'Back', subjects_path %>

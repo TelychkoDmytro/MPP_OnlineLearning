@@ -8,6 +8,9 @@
 <ul>
   <% @subjects.each do |subject| %>
     <li><%= link_to subject.name, subject %></li>
+    <% subject.teachers.each do |teacher| %>
+      <li><%= teacher.full_name %></li>
+    <% end %>
   <% end %>
 </ul>
 

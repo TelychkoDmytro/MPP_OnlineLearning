@@ -1,11 +1,12 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_teacher!, except: [:index, :show, :edit]
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  before_action :check_access_for_index_and_new, only: [:index, :new]
-  before_action :check_access_for_edit, only: [:edit]
+  before_action :authenticate, except: [:show]
+  before_action :check_rights, only: [:show]
   
   def index
-    @groups = Group.all
+    if teacher_signed_in?
+      @groups = Group.joins(:subjects).where(subjects: {id: current_teacher.subject_ids} ).distinct
+    end
   end
 
   def new
@@ -55,7 +56,7 @@ class GroupsController < ApplicationController
     params.require(:group).permit(:name, :head_student_id, student_ids: [], schedule_ids: [])
   end
 
-  def check_access_for_index_and_new
+  def authenticate
     if student_signed_in?
       flash[:alert] = "Access denied"
       redirect_to root_path
@@ -67,14 +68,8 @@ class GroupsController < ApplicationController
     end
   end
 
-  def check_access_for_edit
-    if student_signed_in?
-      unless current_student.group.head_student_id = current_student.id
-        flash[:alert] = "Access denied"
-      end
-    elsif teacher_signed_in?
-      authenticate_teacher!
-    else
+  def check_rights
+    unless student_signed_in? or teacher_signed_in?
       flash[:notice] = "You need to sign in to access this page"
       redirect_to login_path
     end

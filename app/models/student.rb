@@ -6,7 +6,6 @@ class Student < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
-  after_create :create_student_profile
 
   # has_many :group_students, dependent: :destroy
   # has_many :groups, through: :group_students
@@ -17,15 +16,16 @@ class Student < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
+  has_many :scores, dependent: :destroy
+  has_many :subjects, through: :scores
+
+  has_one_attached :avatar
+
   def full_name
     "#{first_name} #{last_name}"
   end
 
   private
-
-  def create_student_profile
-    self.create_profile
-  end
 
   def check_if_head_student
     if group&.head_student == self

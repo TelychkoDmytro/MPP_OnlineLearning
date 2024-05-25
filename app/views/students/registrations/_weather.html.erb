@@ -1,0 +1,30 @@
+<% if @weather %>
+  <div id="weather-block">
+    <h2>Current Weather in <%= @student.city %></h2>
+    <% if params[:units] == 'metric' %>
+      <% @metric = '°C' %>
+    <% else %>
+      <% @metric = 'K' %>
+    <% end %>
+    <div class="weather-summary" onclick="toggleWeatherDetails()">
+      <p>Temperature: <%= @weather.main.temp %><%=@metric%></p>
+      <p>Humidity: <%= @weather.main.humidity %></p>
+    </div>
+    <div id="weather-details" style="display: none;">
+      <p>Condition: <%= @weather.weather.first.description%></p>
+    </div>
+  </div>
+<% else %>
+  <p>Weather data is not available.</p>
+<% end %>
+
+<script>
+  function toggleWeatherDetails() {
+    var details = document.getElementById('weather-details');
+    if (details.style.display === 'none') {
+      details.style.display = 'block';
+    } else {
+      details.style.display = 'none';
+    }
+  }
+</script>

@@ -1,27 +1,23 @@
 Rails.application.routes.draw do
-  # get 'schedules/index'
-  # get 'schedules/show'
-  # get 'schedules/edit'
-  # get 'schedules/new'
-  # get 'students/index'
-  # get 'students/show'
-  # get 'students/edit'
-  # get 'groups/index'
-  # get 'groups/new'
-  # get 'groups/create'
-  # get 'groups/show'
   resources :schedules
-  resources :t_students
   resources :groups
   resources :subjects
 
-  devise_for :teachers, path: 'teachers'
-  devise_for :students
-
+  devise_for :teachers, controllers: {
+    registrations: 'teachers/registrations'
+  }
+  devise_for :students, controllers: {
+    registrations: 'students/registrations'
+  }
+  
+  resources :students, only: [:index, :edit, :update]
+  
+  devise_scope :student do
+    get 'students/edit_weather', to: 'students/registrations#edit_weather'
+  end
+  
   get 'login', to: 'login#new'
   get 'register', to: 'register#new'
-
-  resources :profiles, only: [:show, :edit, :update]
 
   root to: "home#index"
 end

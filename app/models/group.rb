@@ -12,6 +12,8 @@ class Group < ApplicationRecord
 	# validates :teacher, presence: true
 
 	# accepts_nested_attributes_for :group_students
+	has_many :group_subject, dependent: :destroy
+	has_many :subjects, through: :group_subject
 
 	private
 
