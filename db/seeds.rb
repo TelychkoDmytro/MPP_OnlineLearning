@@ -2,6 +2,7 @@
 
 # Create teachers
 
+Task.destroy_all
 Schedule.destroy_all
 Student.destroy_all
 Group.destroy_all
@@ -177,3 +178,39 @@ schedules[9].groups << groups[0]
 # schedules[13].groups << groups[0]
 # schedules[14].groups << groups[0]
 # schedules[15].groups << groups[0]
+
+tasks = Task.create([
+  {title: "Numerical Integration", description: "Using method...", max_score: 10},
+  {title: "Numerical Approximation", description: "Using method...", max_score: 10},
+  {title: "Numerical Interpolation", description: "Using method...", max_score: 10},
+  {title: "Numerical Limination", description: "Using method...", max_score: 10},
+  {title: "Numerical Mantigation", description: "Using method...", max_score: 10},
+  {title: "Numerical Federation", description: "Using method...", max_score: 10},
+])
+
+# Assign subjects to tasks
+tasks[0].subject = subjects[0]
+tasks[1].subject = subjects[1]
+tasks[2].subject = subjects[2]
+tasks[3].subject = subjects[3]
+tasks[4].subject = subjects[0]
+tasks[5].subject = subjects[1]
+
+# Assign students to tasks
+tasks[0].student = students[0]
+tasks[1].student = students[1]
+tasks[2].student = students[2]
+tasks[3].student = students[3]
+tasks[4].student = students[4]
+tasks[5].student = students[5]
+
+tasks.each do |task|
+  if task.valid?
+    task.save
+    puts "#{task.title} task created successfully."
+  else
+    puts "Error creating #{task.title} task:"
+    puts task.errors.full_messages.join(", ")
+  end
+end
+

@@ -15,6 +15,7 @@
   <% end %>
 </ul>
 
+<%= link_to "Tasks", subject_tasks_path(@subject) %>
 <% if current_teacher.id == @subject.head_teacher.id %>
 <%= link_to "Edit" , edit_subject_path %>
 <% end %>
