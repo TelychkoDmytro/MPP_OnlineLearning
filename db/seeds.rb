@@ -183,12 +183,12 @@ schedules[9].groups << groups[0]
 # schedules[15].groups << groups[0]
 
 tasks = Task.create([
-  {title: "Numerical Integration", description: "Using method...", max_score: 10, earned_score: 0},
-  {title: "Numerical Approximation", description: "Using method...", max_score: 10, earned_score: 0},
-  {title: "Numerical Interpolation", description: "Using method...", max_score: 10, earned_score: 0},
-  {title: "Numerical Limination", description: "Using method...", max_score: 10, earned_score: 0},
-  {title: "Numerical Mantigation", description: "Using method...", max_score: 10, earned_score: 0},
-  {title: "Numerical Federation", description: "Using method...", max_score: 10, earned_score: 0},
+  {title: "Numerical Integration", description: "Using method...", max_score: 10},
+  {title: "Numerical Approximation", description: "Using method...", max_score: 10},
+  {title: "Numerical Interpolation", description: "Using method...", max_score: 10},
+  {title: "Numerical Limination", description: "Using method...", max_score: 10},
+  {title: "Numerical Mantigation", description: "Using method...", max_score: 10},
+  {title: "Numerical Federation", description: "Using method...", max_score: 10},
 ])
 
 # Assign subjects to tasks
