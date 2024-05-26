@@ -1,22 +1,85 @@
-<h1>Sujects#show</h1>
-<p>Find me in app/views/sujects/show.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @subject.name %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    .teachers-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .teachers-list li {
+      background-color: #FFE4B5; /* Subtle orange tone */
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .teachers-list li p {
+      margin: 0;
+      font-weight: bold;
+      color: #FF8C00; /* Darker orange tone */
+    }
+    .btn-primary {
+      background-color: #FFA500;
+      border-color: #FFA500;
+    }
+    .btn-primary:hover {
+      background-color: #FF8C00;
+      border-color: #FF8C00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><%= @subject.name %></h1>
+      <p>Find me in app/views/subjects/show.html.erb</p>
+    </div>
 
-<h1><%= @subject.name %></h1>
+    <h3>Teachers</h3>
+    <ul class="teachers-list">
+      <% @subject.teachers.each do |teacher| %>
+        <li>
+          <% if teacher.id == @subject.head_teacher.id %>
+            <p>Head Teacher</p>
+          <% end %>
+          <%= teacher.full_name %>
+        </li>
+      <% end %>
+    </ul>
 
-<h3>Teachers</h3>
-<ul>
-  <% @subject.teachers.each do |teacher| %>
-  <li>
-    <% if teacher.id == @subject.head_teacher.id %>
-    <p>Head Teacher</p>
-    <% end %>
-    <%= teacher.full_name %>
-  </li>
-  <% end %>
-</ul>
-
-<%= link_to "Tasks", subject_tasks_path(@subject) %>
-<% if current_teacher.id == @subject.head_teacher.id %>
-<%= link_to "Edit" , edit_subject_path %>
-<% end %>
-<%= link_to 'Back', subjects_path %>
+    <div class="actions">
+      <%= link_to "Tasks", subject_tasks_path(@subject), class: 'btn btn-secondary' %>
+      <% if current_teacher.id == @subject.head_teacher.id %>
+        <%= link_to "Edit", edit_subject_path(@subject), class: 'btn btn-primary' %>
+      <% end %>
+      <%= link_to 'Back', subjects_path, class: 'btn btn-light' %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,16 +1,23 @@
-<h1>Subject#index</h1>
-<p>Find me in app/views/subjects/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Subjects</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<h1>My Subjects</h1>
-<% if teacher_signed_in? %>
-  <%= link_to 'New Subject', new_subject_path %>
-<% end %>
-<ul>
-  <% @subjects.each do |subject| %>
-    <li><%= link_to subject.name, subject %></li>
-    <% subject.teachers.each do |teacher| %>
-      <li><%= teacher.full_name %></li>
-    <% end %>
-  <% end %>
-</ul>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>My Subjects</h1>
+      <p>Find me in app/views/subjects/index.html.erb</p>
+      <% if teacher_signed_in? %>
+        <%= link_to 'New Subject', new_subject_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
 
+    <%= render partial: 'subject_list', locals: { show_links: true } %>
+  </div>
+</body>
+</html>

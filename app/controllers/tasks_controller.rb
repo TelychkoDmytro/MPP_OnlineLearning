@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, except: [:index]
+  before_action :set_task, except: [:index, :new, :create]
   before_action :authenticate
 
   def index
-    @tasks = Task.all
+    @subject = Subject.find(params[:subject_id])
+    @tasks = @subject.tasks
   end
 
   def show
@@ -13,6 +14,20 @@ class TasksController < ApplicationController
   end
 
   def new
+    @subject = Subject.find(params[:subject_id])
+    @task = Task.new
+    @task.subject = @subject
+  end
+
+  def create
+    @subject = Subject.find(params[:subject_id])
+    @task = Task.new(task_params)
+    @task.subject = @subject
+    if @task.save
+      redirect_to subject_task_path(@subject, @task), notice: "Task was successfully craete."
+    else
+      render :new
+    end
   end
 
   private
@@ -22,7 +37,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :student_id, :subject_id, :max_score, :earned_score)
+    params.require(:task).permit(:title, :description, :subject_id, :max_score, :earned_score, group_ids: [])
   end
 
   def authenticate

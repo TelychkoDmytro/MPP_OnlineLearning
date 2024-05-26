@@ -1,6 +1,76 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
-
-<% @tasks.each do |task| %>
-<%= link_to task.title, subject_task_path(task.subject, task) %>
-<% end %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    .tasks-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .tasks-list li {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff8e1;
+      transition: background-color 0.3s;
+    }
+    .tasks-list li:hover {
+      background-color: #ffe4b2;
+    }
+    .btn-primary {
+      background-color: #FFA500;
+      border-color: #FFA500;
+    }
+    .btn-primary:hover {
+      background-color: #FF8C00;
+      border-color: #FF8C00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Tasks</h1>
+      <p>Find me in app/views/tasks/index.html.erb</p>
+      <% if teacher_signed_in? %>
+        <%= link_to 'Create Task', new_subject_task_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    <ul class="tasks-list">
+      <% @tasks.each do |task| %>
+        <li>
+          <%= link_to task.title, subject_task_path(task.subject, task), class: 'task-link' %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to 'Back', subjects_path, class: 'btn btn-light' %>
+  </div>
+</body>
+</html>

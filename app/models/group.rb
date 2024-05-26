@@ -15,6 +15,8 @@ class Group < ApplicationRecord
 	has_many :group_subject, dependent: :destroy
 	has_many :subjects, through: :group_subject
 
+	has_and_belongs_to_many :tasks
+
 	private
 
 	def head_student_belongs_to_group

@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :groups
   resources :subjects do
     resources :tasks
+    collection do 
+      get 'all_subjects'
+    end
   end
 
   devise_for :teachers, controllers: {

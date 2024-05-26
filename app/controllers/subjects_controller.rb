@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :authenticate_teacher!, except: [:index, :show]
+  before_action :authenticate, except: [:index, :show, :all_subjects]
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -8,6 +8,10 @@ class SubjectsController < ApplicationController
     elsif teacher_signed_in?
       @subjects = current_teacher.subjects
     end
+  end
+
+  def all_subjects
+    @subjects = Subject.all
   end
 
   def new
@@ -50,5 +54,11 @@ class SubjectsController < ApplicationController
 
   def subject_params
     params.require(:subject).permit(:name, :head_teacher_id, teacher_ids: [], student_ids: [], group_ids: [])
+  end
+
+  def authenticate
+    unless teacher_signed_in?
+      authenticate_teacher!
+    end
   end
 end

@@ -8,16 +8,16 @@ class Subject < ApplicationRecord
 	has_many :groups, through: :group_subject
 
 	has_many :tasks, dependent: :destroy
-	has_many :students, through: :tasks
 
 	has_many :schedules
+
+	validate :head_teacher_in_teachers_list
+
+  before_validation :add_first_teacher_as_head_teacher
 
 	validates :name, presence: true, uniqueness: true
 	validates :head_teacher, presence: true
 
-validate :head_teacher_in_teachers_list
-
-  before_validation :add_first_teacher_as_head_teacher, on: :create
 
 private
 

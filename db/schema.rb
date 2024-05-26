@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_25_140726) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_26_062024) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -63,6 +63,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_25_140726) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["head_student_id"], name: "index_groups_on_head_student_id"
+  end
+
+  create_table "groups_tasks", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_groups_tasks_on_group_id"
+    t.index ["task_id"], name: "index_groups_tasks_on_task_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -120,15 +129,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_25_140726) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "student_id", null: false
     t.integer "subject_id", null: false
-    t.string "max_score"
+    t.integer "max_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "earned_score"
     t.string "title"
     t.string "description"
-    t.index ["student_id"], name: "index_tasks_on_student_id"
     t.index ["subject_id"], name: "index_tasks_on_subject_id"
   end
 
@@ -155,12 +162,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_25_140726) do
   add_foreign_key "group_subjects", "groups"
   add_foreign_key "group_subjects", "subjects"
   add_foreign_key "groups", "students", column: "head_student_id"
+  add_foreign_key "groups_tasks", "groups"
+  add_foreign_key "groups_tasks", "tasks"
   add_foreign_key "profiles", "students"
   add_foreign_key "schedules", "subjects"
   add_foreign_key "schedules", "teachers"
   add_foreign_key "subject_teachers", "subjects"
   add_foreign_key "subject_teachers", "teachers"
   add_foreign_key "subjects", "teachers", column: "head_teacher_id"
-  add_foreign_key "tasks", "students"
   add_foreign_key "tasks", "subjects"
 end

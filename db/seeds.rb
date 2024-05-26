@@ -3,9 +3,12 @@
 # Create teachers
 
 Task.destroy_all
+GroupSchedule.destroy_all
+GroupSubject.destroy_all
 Schedule.destroy_all
 Student.destroy_all
 Group.destroy_all
+SubjectTeacher.destroy_all
 Subject.destroy_all
 Teacher.destroy_all
 
@@ -180,12 +183,12 @@ schedules[9].groups << groups[0]
 # schedules[15].groups << groups[0]
 
 tasks = Task.create([
-  {title: "Numerical Integration", description: "Using method...", max_score: 10},
-  {title: "Numerical Approximation", description: "Using method...", max_score: 10},
-  {title: "Numerical Interpolation", description: "Using method...", max_score: 10},
-  {title: "Numerical Limination", description: "Using method...", max_score: 10},
-  {title: "Numerical Mantigation", description: "Using method...", max_score: 10},
-  {title: "Numerical Federation", description: "Using method...", max_score: 10},
+  {title: "Numerical Integration", description: "Using method...", max_score: 10, earned_score: 0},
+  {title: "Numerical Approximation", description: "Using method...", max_score: 10, earned_score: 0},
+  {title: "Numerical Interpolation", description: "Using method...", max_score: 10, earned_score: 0},
+  {title: "Numerical Limination", description: "Using method...", max_score: 10, earned_score: 0},
+  {title: "Numerical Mantigation", description: "Using method...", max_score: 10, earned_score: 0},
+  {title: "Numerical Federation", description: "Using method...", max_score: 10, earned_score: 0},
 ])
 
 # Assign subjects to tasks
@@ -197,12 +200,19 @@ tasks[4].subject = subjects[0]
 tasks[5].subject = subjects[1]
 
 # Assign students to tasks
-tasks[0].student = students[0]
-tasks[1].student = students[1]
-tasks[2].student = students[2]
-tasks[3].student = students[3]
-tasks[4].student = students[4]
-tasks[5].student = students[5]
+groups[0].tasks << tasks[0]
+# tasks[0].groups << groups[0]
+# tasks[1].groups << groups[0]
+# tasks[1].groups << groups[1]
+# tasks[2].groups << groups[1]
+# tasks[2].groups << groups[2]
+# tasks[3].groups << groups[0]
+# tasks[3].groups << groups[1]
+# tasks[3].groups << groups[3]
+# tasks[4].groups << groups[1]
+# tasks[4].groups << groups[3]
+# tasks[3].groups << groups[4]
+
 
 tasks.each do |task|
   if task.valid?

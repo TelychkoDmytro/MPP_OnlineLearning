@@ -1,0 +1,72 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #333;
+  }
+  .subject-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .subject-list li {
+    background-color: #FFA500; /* Orange tone */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .subject-list li a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .subject-list .teachers {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: none;
+    padding: 0;
+  }
+  .subject-list .teachers li {
+    background-color: #FFB347; /* Lighter orange tone */
+    padding: 5px;
+    border-radius: 5px;
+  }
+</style>
+
+<ul class="subject-list">
+  <% @subjects.each do |subject| %>
+  <li>
+    <% if show_links %>
+    <%= link_to subject.name, subject_tasks_path(subject)%>
+    <% else %>
+    <%= subject.name %>
+    <% end %>
+    <ul class="teachers">
+      <% subject.teachers.each do |teacher| %>
+      <% @title = '' %>
+      <% if teacher.id == subject.head_teacher.id %>
+      <% @title = ' (Head Teacher)' %>
+      <% end %>
+      <li><%= teacher.full_name %><%= @title %></li>
+      <% end %>
+    </ul>
+  </li>
+  <% end %>
+</ul>
