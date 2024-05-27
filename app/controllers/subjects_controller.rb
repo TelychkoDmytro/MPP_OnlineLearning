@@ -6,7 +6,7 @@ class SubjectsController < ApplicationController
 
   def index
     if student_signed_in?
-      @subjects = current_student.subjects
+      @subjects = current_student.group.subjects
     elsif teacher_signed_in?
       @subjects = current_teacher.subjects
     end

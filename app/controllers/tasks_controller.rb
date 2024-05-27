@@ -39,7 +39,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :subject_id, :max_score, :earned_score, group_ids: [])
+    params.require(:task).permit(:title, :description, :subject_id, :max_score, group_ids: [])
   end
 
   def authenticate

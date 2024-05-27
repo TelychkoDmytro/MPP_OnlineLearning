@@ -8,7 +8,6 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :max_score, presence: true, numericality: {only_integer: true, greater_than: 0, less_than_or_equal_to: 100}
-  validates :earned_score, numericality: {only_integer: true, greater_than_or_equal_to: 0 }
   validate :max_score_uniqueness_within_group_and_subject
 
   private
