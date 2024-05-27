@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGroupsTasks < ActiveRecord::Migration[7.0]
   def change
     create_table :groups_tasks do |t|

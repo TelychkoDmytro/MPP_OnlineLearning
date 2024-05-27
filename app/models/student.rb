@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Student < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -10,8 +12,8 @@ class Student < ApplicationRecord
   # has_many :group_students, dependent: :destroy
   # has_many :groups, through: :group_students
   belongs_to :group, optional: true
-  before_destroy :check_if_head_student
   before_update :check_if_removing_from_group
+  before_destroy :check_if_head_student
 
   validates :first_name, presence: true
   validates :last_name, presence: true

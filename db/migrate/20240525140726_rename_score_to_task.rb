@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameScoreToTask < ActiveRecord::Migration[7.0]
   def change
     rename_column :scores, :score, :max_score

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TStudentsController < ApplicationController
   before_action :authenticate_teacher!, except: [:edit, :index, :show]
   before_action :set_student, only: [:edit, :update]
@@ -15,7 +17,7 @@ class TStudentsController < ApplicationController
         @student = Student.find(params[:id])
       end
     else
-      puts "Acces denied"
+      Rails.logger.debug "Acces denied"
     end
   end
 

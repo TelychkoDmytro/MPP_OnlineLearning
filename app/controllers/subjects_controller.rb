@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubjectsController < ApplicationController
   before_action :authenticate, except: [:index, :show, :all_subjects]
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
@@ -14,8 +16,15 @@ class SubjectsController < ApplicationController
     @subjects = Subject.all
   end
 
+  def show
+    # Rails.logger.debug "Subject: #{@subject.teachers.inspect}"
+  end
+
   def new
     @subject = Subject.new
+  end
+
+  def edit
   end
 
   def create
@@ -29,13 +38,6 @@ class SubjectsController < ApplicationController
       flash.now[:alert] = "Subject '#{subject_params[:name]}' already exists."
       render :new
     end
-  end
-
-  def show
-    # Rails.logger.debug "Subject: #{@subject.teachers.inspect}"
-  end
-
-  def edit
   end
 
   def update

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Subject < ApplicationRecord
 
 	has_many :subject_teacher, dependent: :destroy
@@ -16,7 +18,6 @@ class Subject < ApplicationRecord
   before_validation :add_first_teacher_as_head_teacher
 
 	validates :name, presence: true, uniqueness: true
-	validates :head_teacher, presence: true
 
 
 private

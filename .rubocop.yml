@@ -1,0 +1,61 @@
+inherit_from: .rubocop_todo.yml
+
+
+require:
+  - rubocop-rails
+  - rubocop-capybara
+
+# Enable new cops that are added in future RuboCop versions
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'node_modules//*'
+  DisplayCopNames: true
+  TargetRubyVersion: 2.4
+
+# Layout cops
+Layout/LineLength:
+  Max: 160
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+# Style cops
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Metrics cops
+Metrics/BlockLength:
+  Exclude:
+    - 'spec//*.rb'
+
+Metrics/MethodLength:
+  Max: 40
+
+# Lint cops
+Lint/AmbiguousBlockAssociation:
+  Enabled: true
+
+# Rails cops
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+# Exclude specific cops or categories of cops
+# For Rails/HasAndBelongsToMany offense
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+# For Rails/UniqueValidationWithoutIndex offense
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false

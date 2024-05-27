@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :authenticate, except: [:show]
@@ -9,9 +11,16 @@ class GroupsController < ApplicationController
     end
   end
 
+  def show
+    @students = @group.students
+  end
+
   def new
     @group = Group.new
     @students = Student.all
+  end
+
+  def edit
   end
 
   def create
@@ -23,13 +32,6 @@ class GroupsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-    @students = @group.students
-  end
-
-  def edit
   end
 
   def update

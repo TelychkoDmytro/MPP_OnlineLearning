@@ -133,7 +133,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_26_062024) do
     t.integer "max_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "earned_score"
     t.string "title"
     t.string "description"
     t.index ["subject_id"], name: "index_tasks_on_subject_id"

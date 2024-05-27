@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchedulesController < ApplicationController
   before_action :authenticate_teacher, only: [:edit, :new, :destroy]
   before_action :atuhencticate, except: [:index, :show]
@@ -11,25 +13,11 @@ class SchedulesController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
-  def update
-    if @schedule.update(schedule_params)
-      redirect_to schedules_path
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    if @schedule.destroy
-      redirect_to @schedule, notice: 'Schedule was canceled'
-    end
-  end
-
   def new
     @schedule = Schedule.new
+  end
+
+  def edit
   end
 
   def create
@@ -47,6 +35,21 @@ class SchedulesController < ApplicationController
       render :new
     end
   end
+
+  def update
+    if @schedule.update(schedule_params)
+      redirect_to schedules_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    if @schedule.destroy
+      redirect_to @schedule, notice: 'Schedule was canceled'
+    end
+  end
+
 
   private
 

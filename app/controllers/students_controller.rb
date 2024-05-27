@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentsController < ApplicationController
 	before_action :authenticate_teacher!, only: [:edit, :update]
 	before_action :set_student, only: [:edit, :update]

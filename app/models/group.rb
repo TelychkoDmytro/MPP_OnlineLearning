@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Group < ApplicationRecord
 	# belongs_to :teacher
 	belongs_to :head_student, class_name: 'Student', optional: true

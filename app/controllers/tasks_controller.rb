@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :set_task, except: [:index, :new, :create]
   before_action :authenticate
@@ -10,13 +12,13 @@ class TasksController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
   def new
     @subject = Subject.find(params[:subject_id])
     @task = Task.new
     @task.subject = @subject
+  end
+
+  def edit
   end
 
   def create

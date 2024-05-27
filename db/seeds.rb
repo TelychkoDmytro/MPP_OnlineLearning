@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # db/seeds.rb
 
 # Create teachers
@@ -120,7 +122,7 @@ time = Time.current
 
 schedules = Schedule.create([
   { time: time, teacher: teachers[0], subject: teachers[0].subjects.first, schedule_type: 'lecture'},
-  { time: time + 1.hours, teacher: teachers[1], subject: teachers[1].subjects[0], schedule_type: 'practic'},
+  { time: time + 1.hour, teacher: teachers[1], subject: teachers[1].subjects[0], schedule_type: 'practic'},
   { time: time + 2.hours, teacher: teachers[1], subject: teachers[1].subjects[1], schedule_type: 'lecture'},
   { time: time + 3.hours, teacher: teachers[2], subject: teachers[2].subjects[0], schedule_type: 'practic'},
   { time: time + 4.hours, teacher: teachers[2], subject: teachers[2].subjects[1], schedule_type: 'lecture'},
@@ -217,10 +219,10 @@ groups[0].tasks << tasks[0]
 tasks.each do |task|
   if task.valid?
     task.save
-    puts "#{task.title} task created successfully."
+    Rails.logger.debug { "#{task.title} task created successfully." }
   else
-    puts "Error creating #{task.title} task:"
-    puts task.errors.full_messages.join(", ")
+    Rails.logger.debug { "Error creating #{task.title} task:" }
+    Rails.logger.debug task.errors.full_messages.join(", ")
   end
 end
 
