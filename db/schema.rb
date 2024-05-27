@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_27_181513) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_27_190331) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -93,14 +93,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_181513) do
     t.index ["teacher_id"], name: "index_schedules_on_teacher_id"
   end
 
-  create_table "student_scores", force: :cascade do |t|
+  create_table "student_subject_opt_outs", force: :cascade do |t|
     t.integer "student_id", null: false
-    t.integer "score"
-    t.integer "task_id", null: false
+    t.integer "subject_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_student_scores_on_student_id"
-    t.index ["task_id"], name: "index_student_scores_on_task_id"
+    t.index ["student_id"], name: "index_student_subject_opt_outs_on_student_id"
+    t.index ["subject_id"], name: "index_student_subject_opt_outs_on_subject_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -177,8 +176,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_181513) do
   add_foreign_key "profiles", "students"
   add_foreign_key "schedules", "subjects"
   add_foreign_key "schedules", "teachers"
-  add_foreign_key "student_scores", "students"
-  add_foreign_key "student_scores", "tasks"
+  add_foreign_key "student_subject_opt_outs", "students"
+  add_foreign_key "student_subject_opt_outs", "subjects"
   add_foreign_key "subject_teachers", "subjects"
   add_foreign_key "subject_teachers", "teachers"
   add_foreign_key "subjects", "teachers", column: "head_teacher_id"

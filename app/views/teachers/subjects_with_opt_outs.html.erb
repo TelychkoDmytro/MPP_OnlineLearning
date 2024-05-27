@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subjects with Opted-Out Students</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    .subject {
+      background-color: #fff;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .subject h2 {
+      margin-top: 0;
+      color: #0056b3;
+    }
+    .student-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .student-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .student-list li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Subjects with Opted-Out Students</h1>
+    <% @subjects.each do |subject| %>
+    <div class="subject">
+      <h2><%= subject.name %></h2>
+      <ul class="student-list">
+        <% subject.student_subject_opt_outs.each do |opt_out| %>
+        <li><%= opt_out.student.first_name %> <%= opt_out.student.last_name %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+</body>
+</html>

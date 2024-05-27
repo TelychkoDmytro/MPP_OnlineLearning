@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class TeachersController < ApplicationController
+	def subjects_with_opt_outs
+		@subjects = current_teacher.subjects
+	end
 
 	private
 

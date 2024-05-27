@@ -19,6 +19,8 @@ class Subject < ApplicationRecord
 
 	validates :name, presence: true, uniqueness: true
 
+	has_many :student_subject_opt_outs
+
 
 private
 

@@ -20,6 +20,8 @@ class Student < ApplicationRecord
 
   has_one_attached :avatar
 
+  has_many :student_subject_opt_outs
+
   def full_name
     "#{first_name} #{last_name}"
   end

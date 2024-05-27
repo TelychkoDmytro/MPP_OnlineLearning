@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # resources :student_subject_opt_outs
   resources :schedules
   resources :groups
   resources :subjects do
@@ -17,7 +18,14 @@ Rails.application.routes.draw do
     registrations: 'students/registrations'
   }
   
-  resources :students, only: [:index, :edit, :update]
+  resources :students, only: [:index, :edit, :update] do
+    member do
+      get 'opt_out_subjects'
+      post 'update_opt_out_subjects'
+    end
+  end
+
+  get 'teachers/subjects_with_opt_outs', to: 'teachers#subjects_with_opt_outs', as: 'subjects_with_opt_outs'
   
   devise_scope :student do
     get 'students/edit_weather', to: 'students/registrations#edit_weather'
