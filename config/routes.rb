@@ -7,10 +7,12 @@ Rails.application.routes.draw do
       patch 'update_attendances', to: 'student_attendances#update', as: 'update_attendances'
     end
   end
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   resources :groups
   resources :subjects do
     resources :tasks
-    collection do 
+    collection do
       get 'all_subjects'
     end
   end
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
   devise_for :teachers, controllers: {
     registrations: 'teachers/registrations'
   }
+
   devise_for :students, controllers: {
     registrations: 'students/registrations'
   }
@@ -30,13 +33,14 @@ Rails.application.routes.draw do
   end
 
   get 'teachers/subjects_with_opt_outs', to: 'teachers#subjects_with_opt_outs', as: 'subjects_with_opt_outs'
-  
+
   devise_scope :student do
     get 'students/edit_weather', to: 'students/registrations#edit_weather'
   end
-  
+
   get 'login', to: 'login#new'
+
   get 'register', to: 'register#new'
 
-  root to: "home#index"
+  root to: 'home#index'
 end
