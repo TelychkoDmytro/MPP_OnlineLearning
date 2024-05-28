@@ -10,6 +10,21 @@ class Task < ApplicationRecord
   validates :max_score, presence: true, numericality: {only_integer: true, greater_than: 0, less_than_or_equal_to: 100}
   validate :max_score_uniqueness_within_group_and_subject
 
+  has_many :student_task_scores
+  has_many :students, through: :student_task_scores
+
+  after_create :create_student_task_scores
+
+  private
+
+  def create_student_task_scores
+    self.groups.each do |group|
+      group.students.each do |student|
+        StudentTaskScore.create(task: self, student: student, score: 0)
+      end
+    end
+  end
+
   def groups_must_belong_to_subject
     invalid_groups = groups.reject { |group| group.subjects.include?(subject) }
     return unless invalid_groups.any?

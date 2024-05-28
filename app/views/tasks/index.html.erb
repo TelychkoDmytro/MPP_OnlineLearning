@@ -57,8 +57,11 @@
 <body>
   <div class="container">
     <div class="header">
+      <% unless @subject.description.nil? %>
+      <h1>About Subject</h1>
+      <p><%= @subject.description %></p>
+      <% end %>
       <h1>Tasks</h1>
-      <p>Find me in app/views/tasks/index.html.erb</p>
       <% if teacher_signed_in? %>
         <%= link_to 'Create Task', new_subject_task_path, class: 'btn btn-primary' %>
       <% end %>

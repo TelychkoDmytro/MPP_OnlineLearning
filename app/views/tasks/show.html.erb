@@ -58,6 +58,22 @@
       background-color: #FF8C00;
       border-color: #FF8C00;
     }
+    .student-scores {
+      margin-top: 30px;
+    }
+    .student-scores h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .student-scores table {
+      width: 100%;
+    }
+    .student-scores table th, .student-scores table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -75,17 +91,45 @@
         <p><strong>Subject:</strong> <%= @task.subject.name %></p>
         <p><strong>Max Score:</strong> <%= @task.max_score %></p>
         <p><strong>Groups:</strong></p>
-        <p>
-          <ul>
+        <ul>
           <% @task.groups.each do |group| %>
-            <li>
-              <%= group.name %>
-            </li>
+            <li><%= group.name %></li>
           <% end %>
-          </ul>
-        </p>
+        </ul>
       </div>
     </div>
+
+    <% if teacher_signed_in? %>
+    <div class="student-scores">
+      <h2>Student Scores</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Score</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @task.student_task_scores.each do |student_task_score| %>
+            <tr>
+              <td><%= student_task_score.student.full_name %></td>
+              <td><%= student_task_score.score %></td>
+              <td>
+                <%= link_to 'Edit', edit_subject_task_student_task_score_path(@task.subject, @task, student_task_score), class: 'btn btn-primary btn-sm' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% elsif student_signed_in? %>
+      <% @task.student_task_scores.each do |student_task_score| %>
+            <% if student_task_score.student.id == current_student.id %>
+            <%= "Your score is #{student_task_score.score}" %>
+            <% end %>
+          <% end %>
+    <% end %>
 
     <div class="mt-4">
       <%= link_to 'Back to Tasks', subject_tasks_path(@task.subject), class: 'btn btn-secondary' %>

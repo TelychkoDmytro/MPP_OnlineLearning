@@ -6,17 +6,12 @@ class Student < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :profile, dependent: :destroy
-  accepts_nested_attributes_for :profile
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
-  # has_many :group_students, dependent: :destroy
-  # has_many :groups, through: :group_students
   belongs_to :group, optional: true
   before_update :check_if_removing_from_group
   before_destroy :check_if_head_student
-
-  validates :first_name, presence: true
-  validates :last_name, presence: true
 
   has_one_attached :avatar
 
@@ -24,9 +19,14 @@ class Student < ApplicationRecord
 
   has_many :student_attendances, dependent: :destroy
 
+  has_many :student_task_scores
+  has_many :tasks, through: :student_task_scores
+
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  private
 
   def check_if_head_student
     return unless group&.head_student == self

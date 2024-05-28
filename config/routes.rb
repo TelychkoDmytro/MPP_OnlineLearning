@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   resources :groups
   resources :subjects do
-    resources :tasks
+    resources :tasks do
+      resources :student_task_scores, only: [:edit, :update]
+    end
     collection do
       get 'all_subjects'
     end
@@ -42,5 +44,5 @@ Rails.application.routes.draw do
 
   get 'register', to: 'register#new'
 
-  root to: 'home#index'
+  root to: 'subjects#all_subjects'
 end

@@ -1,0 +1,26 @@
+<h1>Edit Score</h1>
+
+<%= form_with(model: [@task.subject, @task, @student_task_score], local: true) do |form| %>
+<% if @student_task_score.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@student_task_score.errors.count, "error") %> prohibited this score from being saved:</h2>
+
+	<ul>
+		<% @student_task_score.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<div class="field">
+	<%= form.label :"Score must be less than or equal to the maximum score of #{@task.max_score}." %>
+	<%= form.number_field :score %>
+</div>
+
+<div class="actions">
+	<%= form.submit 'Update Score' %>
+</div>
+<% end %>
+
+<%= link_to 'Back', subject_task_path(@task.subject, @task) %>
