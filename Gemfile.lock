@@ -121,11 +121,7 @@ GEM
       multipart-post (~> 2)
     faraday-net_http (3.1.0)
       net-http
-<<<<<<< Updated upstream
     ffi (1.16.3-x64-mingw-ucrt)
-=======
-    ffi (1.16.3)
->>>>>>> Stashed changes
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)

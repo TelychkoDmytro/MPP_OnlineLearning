@@ -92,12 +92,8 @@ end
 
 gem 'devise', '~> 4.9'
 
-<<<<<<< Updated upstream
-gem 'open-weather-ruby-client', '~> 0.4.0'
-=======
 gem "open-weather-ruby-client", "~> 0.4.0"
 
 gem 'activeadmin'
 
 gem 'i18n'
->>>>>>> Stashed changes

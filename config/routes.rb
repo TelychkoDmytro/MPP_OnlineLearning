@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-<<<<<<< Updated upstream
   resources :schedules do
     member do
       get 'edit_attendances', to: 'student_attendances#edit', as: 'edit_attendances'
@@ -10,11 +9,6 @@ Rails.application.routes.draw do
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-=======
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  resources :schedules
->>>>>>> Stashed changes
   resources :groups
   resources :subjects do
     resources :tasks do

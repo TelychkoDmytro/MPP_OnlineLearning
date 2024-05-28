@@ -7,7 +7,7 @@
     <ul class="navbar-nav mr-auto">
     </ul>
     <% if student_signed_in? %>
-<<<<<<< Updated upstream
+    <%#  %>
     <ul class="navbar-nav">
       <li class="nav-item">
         <%= link_to "Opt Outs", opt_out_subjects_student_path(current_student.id), class: "nav-link" %>
@@ -42,10 +42,10 @@
       </li>
       <li class="nav-item">
           <%= link_to "Students", students_path, class: "nav-link"%>
-      </li>
-=======
+      </li> %>
+<%# ======= %>
       <ul class="navbar-nav">
->>>>>>> Stashed changes
+<%# >>>>>>> Stashed changes %>
         <li class="nav-item">
           <%= link_to t('navbar.all_subjects'), all_subjects_subjects_path, class: "nav-link" %>
         </li>

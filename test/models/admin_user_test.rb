@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 # frozen_string_literal: true
-
-=======
->>>>>>> Stashed changes
 require "test_helper"
 
 class AdminUserTest < ActiveSupport::TestCase

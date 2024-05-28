@@ -237,9 +237,6 @@ tasks.each do |task|
     Rails.logger.debug { "Error creating #{task.title} task:" }
     Rails.logger.debug task.errors.full_messages.join(', ')
   end
-<<<<<<< Updated upstream
 end
+
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-=======
-end
->>>>>>> Stashed changes
