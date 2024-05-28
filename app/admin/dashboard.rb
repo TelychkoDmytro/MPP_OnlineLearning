@@ -81,30 +81,46 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
-    columns do
-      column do
-        panel "Group Schedules" do
-          ul do
-            GroupSchedule.includes(:group, :schedule).order(created_at: :desc).limit(5).map do |group_schedule|
-              li link_to("#{group_schedule.group.name} - #{group_schedule.schedule.schedule_type}", admin_group_schedule_path(group_schedule))
-            end
-          end
-        end
-      end
+    # columns do
+    #   column do
+    #     panel "Group Schedules" do
+    #       ul do
+    #         GroupSchedule.includes(:group, :schedule).order(created_at: :desc).limit(5).map do |group_schedule|
+    #           li link_to("#{group_schedule.group.name} - #{group_schedule.schedule.schedule_type}", admin_group_schedule_path(group_schedule))
+    #         end
+    #       end
+    #     end
+    #   end
 
-      column do
-        panel "Upcoming Schedules" do
-          ul do
-            Schedule.order(time: :asc).limit(5).map do |schedule|
-              li link_to(
-                "#{schedule.subject.name} with #{schedule.teacher.first_name} #{schedule.teacher.last_name} on #{schedule.time.strftime('%d %b %Y, %H:%M')}",
-                admin_schedule_path(schedule)
-              )
-            end
+    # <<<<<<< HEAD
+    column do
+      panel "Upcoming Schedules" do
+        ul do
+          Schedule.order(time: :asc).limit(5).map do |schedule|
+            li link_to(
+              "#{schedule.subject.name} with #{schedule.teacher.first_name} #{schedule.teacher.last_name} on #{schedule.time.strftime('%d %b %Y, %H:%M')}",
+              admin_schedule_path(schedule)
+            )
           end
         end
       end
     end
-    # >>>>>>> Stashed changes
   end
+  # >>>>>>> Stashed changes
+  # =======
+  #   column do
+  #     panel "Upcoming Schedules" do
+  #       ul do
+  #         Schedule.order(time: :asc).limit(5).map do |schedule|
+  #           li link_to(
+  #             "#{schedule.subject.name} with #{schedule.teacher.first_name} #{schedule.teacher.last_name} on #{schedule.time.strftime('%d %b %Y, %H:%M')}",
+  # admin_schedule_path(schedule)
+  #           )
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
+  # >>>>>>> Stashed changes
+  # >>>>>>> c4e72c3284d0f5fbbeb60c196eebabb41b32c685
 end

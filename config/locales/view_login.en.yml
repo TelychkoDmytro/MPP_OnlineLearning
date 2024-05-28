@@ -1,0 +1,8 @@
+en:
+  views:
+    login:
+      title: "Log In"
+      email: "Email"
+      password: "Password"
+      remember_me: "Remember Me"
+      log_in_button: "Log In"

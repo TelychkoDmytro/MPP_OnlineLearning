@@ -14,6 +14,12 @@ module OnlineLearning
     config.load_defaults 7.0
     config.i18n.default_locale = :uk
 
+    # Before filter to set the locale based on query parameter
+    config.before_configuration do
+      locale = ENV['locale'] || :uk # Default to English if no locale is specified
+      config.i18n.locale = locale.to_sym
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

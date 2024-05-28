@@ -8,6 +8,11 @@ class SchedulesController < ApplicationController
 
   def index
     @schedules = Schedule.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @schedules.to_csv, filename: "schedules-#{Time.zone.today}.csv" }
+    end
   end
 
   def show; end

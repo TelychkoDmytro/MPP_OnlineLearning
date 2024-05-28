@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # db/seeds.rb
-
+# 
 # Create teachers
 
 Task.destroy_all
@@ -54,11 +54,12 @@ teachers = Teacher.create([
 ])
 
 subjects = Subject.create([
-  { name: 'Math', head_teacher: teachers[0] },
-  { name: 'Programming', head_teacher: teachers[1] },
-  { name: 'History', head_teacher: teachers[2] },
-  { name: 'Algorithms', head_teacher: teachers[3] }
+  { name: t('subjects.math'), head_teacher: teachers[0] },
+  { name: t('subjects.programming'), head_teacher: teachers[1] },
+  { name: t('subjects.history'), head_teacher: teachers[2] },
+  { name: t('subjects.algorithms'), head_teacher: teachers[3] }
 ])
+
 
 subjects[0].teachers << teachers[1]
 subjects[1].teachers << teachers[2]

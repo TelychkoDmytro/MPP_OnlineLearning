@@ -25,4 +25,18 @@ class Schedule < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     ["created_at", "id", "schedule_type", "subject_id", "teacher_id", "time", "updated_at"]
   end
+
+  require 'csv'
+  def self.to_csv
+    schedules = all
+
+    CSV.generate(headers: true) do |csv|
+      csv << column_names
+
+      schedules.find_each do |schedule|
+        csv << schedule.attributes.values_at(*column_names)
+        # csv << attributes.map{ |attr| schedule.send(attr) }
+      end
+    end
+  end
 end

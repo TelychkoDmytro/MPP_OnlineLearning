@@ -1,0 +1,8 @@
+uk:
+  views:
+    login:
+      title: "Увійти"
+      email: "Електронна пошта"
+      password: "Пароль"
+      remember_me: "Запам'ятати мене"
+      log_in_button: "Увійти"
