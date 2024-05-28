@@ -1,9 +1,9 @@
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>All Subjects</h1>
-    </div>
-
-    <%= render partial: 'subject_list', locals: { show_links: false } %>
+<div class="container">
+  <div class="header">
+    <h1><%= t('navbar.all_subjects') %></h1>
   </div>
+
+  <%= render partial: 'subject_list', locals: { show_links: false } %>
+</div>
 </body>

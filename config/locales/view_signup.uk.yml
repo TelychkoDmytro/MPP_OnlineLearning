@@ -1,0 +1,11 @@
+uk:
+  views:
+    sign_up:
+      title: "Зареєструватися"
+      labels:
+        first_name: "Ім'я"
+        last_name: "Прізвище"
+        email: "Електронна пошта"
+        password: "Пароль"
+        password_confirmation: "Підтвердження пароля"
+      sign_up_button: "Зареєструватися"
