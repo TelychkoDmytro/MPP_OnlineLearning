@@ -1,0 +1,6 @@
+uk:
+  register_page:
+    welcome: "Ласкаво просимо на сторінку реєстрації"
+    choose_register_type: "Будь ласка, оберіть тип реєстрації"
+    student: "Я студент"
+    teacher: "Я викладач"

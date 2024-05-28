@@ -1,5 +1,8 @@
+<<<<<<< Updated upstream
 # frozen_string_literal: true
 
+=======
+>>>>>>> Stashed changes
 ActiveAdmin.setup do |config|
   # == Site Title
   #

@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 #!/usr/bin/env ruby.exe
 # frozen_string_literal: true
 
 require_relative '../config/boot'
 require 'rake'
+=======
+#!/usr/bin/env ruby
+require_relative "../config/boot"
+require "rake"
+>>>>>>> Stashed changes
 Rake.application.run
