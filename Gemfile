@@ -14,12 +14,6 @@ gem 'sprockets-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 
-#Use active admin gem
-gem 'activeadmin'
-
-#SASSC
-gem "sassc-rails"
-
 #Country select
 gem 'country_select', '~> 8.0'
 
@@ -71,6 +65,10 @@ group :development, :test do
 
   # Add rubocop-capybara gem
   gem 'rubocop-capybara', require: false
+
+  #Add test gems
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -88,6 +86,8 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
+
+  gem 'shoulda-matchers'
 end
 
 gem 'devise', '~> 4.9'

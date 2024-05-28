@@ -15,7 +15,6 @@ class Schedule < ApplicationRecord
 
   has_many :student_attendances, dependent: :destroy
 
-  private
   def teacher_must_teach_subject
     return if teacher.nil?
     return if teacher.subjects.include?(subject)

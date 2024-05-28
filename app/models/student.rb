@@ -26,8 +26,6 @@ class Student < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  private
-
   def check_if_head_student
     return unless group&.head_student == self
 

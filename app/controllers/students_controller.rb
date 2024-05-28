@@ -5,26 +5,26 @@ class StudentsController < ApplicationController
   before_action :set_student, only: %i[edit update]
   before_action :check_access_for_edit, only: [:edit]
 
-	def opt_out_subjects
-		@student = current_student
-		@subjects = current_student.group.subjects
-	end
+	 def opt_out_subjects
+ 		@student = current_student
+ 		@subjects = current_student.group.subjects
+ 	end
 
-	def update_opt_out_subjects
-	    @student = current_student
-	    @student.student_subject_opt_outs.destroy_all # Clear existing opt-outs
+	 def update_opt_out_subjects
+ 	    @student = current_student
+ 	    @student.student_subject_opt_outs.destroy_all # Clear existing opt-outs
 
-	    subject_ids = params[:student][:subject_ids].reject(&:blank?)
-	    subject_ids.each do |subject_id|
-	      StudentSubjectOptOut.create(student: @student, subject_id: subject_id)
-	    end
+ 	    subject_ids = params[:student][:subject_ids].compact_blank
+ 	    subject_ids.each do |subject_id|
+ 	      StudentSubjectOptOut.create(student: @student, subject_id:)
+ 	    end
 
-	    redirect_to root_path, notice: "Opt-out preferences updated successfully."
-	  end
+ 	    redirect_to root_path, notice: "Opt-out preferences updated successfully."
+  end
 
-	def index
-		@students = Student.all
-	end
+	 def index
+ 		@students = Student.all
+ 	end
 
   def edit; end
 

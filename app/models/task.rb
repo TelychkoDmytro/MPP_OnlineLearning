@@ -15,10 +15,8 @@ class Task < ApplicationRecord
 
   after_create :create_student_task_scores
 
-  private
-
   def create_student_task_scores
-    self.groups.each do |group|
+    groups.each do |group|
       group.students.each do |student|
         StudentTaskScore.create(task: self, student: student, score: 0)
       end
@@ -34,13 +32,10 @@ class Task < ApplicationRecord
 
   def max_score_uniqueness_within_group_and_subject
     groups.each do |group|
-      sum_max_scores = Task.joins(:groups)
-                           .where(subject:, groups: {id: group.id })
-                           .where.not(id:)
-                           .sum(:max_score)
-
-      if sum_max_scores >= 100
+      sum_max_scores = group.tasks.where.not(id: id).sum(:max_score)
+      if sum_max_scores + max_score > 100
         errors.add(:max_score, 'sum of max scores for the same group and subject cannot exceed 100')
+        break
       end
     end
   end

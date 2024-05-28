@@ -20,8 +20,6 @@ class Subject < ApplicationRecord
 
 	has_many :student_subject_opt_outs
 
-  private
-
   def head_teacher_in_teachers_list
     return if teachers.include?(head_teacher)
 

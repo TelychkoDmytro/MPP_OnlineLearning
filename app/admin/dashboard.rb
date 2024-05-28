@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
   content title: proc { I18n.t("active_admin.dashboard") } do
-# <<<<<<< Updated upstream
+    # <<<<<<< Updated upstream
     div class: "blank_slate_container", id: "dashboard_default_message" do
       span class: "blank_slate" do
         span I18n.t("active_admin.dashboard_welcome.welcome")
@@ -30,7 +31,7 @@ ActiveAdmin.register_page "Dashboard" do
     #     end
     #   end
     # end
-# =======
+    # =======
     columns do
       column do
         panel "Recent Students" do
@@ -96,13 +97,14 @@ ActiveAdmin.register_page "Dashboard" do
           ul do
             Schedule.order(time: :asc).limit(5).map do |schedule|
               li link_to(
-                "#{schedule.subject.name} with #{schedule.teacher.first_name} #{schedule.teacher.last_name} on #{schedule.time.strftime('%d %b %Y, %H:%M')}", admin_schedule_path(schedule)
+                "#{schedule.subject.name} with #{schedule.teacher.first_name} #{schedule.teacher.last_name} on #{schedule.time.strftime('%d %b %Y, %H:%M')}",
+                admin_schedule_path(schedule)
               )
             end
           end
         end
       end
     end
-# >>>>>>> Stashed changes
+    # >>>>>>> Stashed changes
   end
 end

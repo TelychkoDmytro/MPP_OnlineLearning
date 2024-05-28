@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentTaskScore < ApplicationRecord
   belongs_to :student
   belongs_to :task
@@ -8,8 +10,8 @@ class StudentTaskScore < ApplicationRecord
   private
 
   def score_less_than_or_equal_to_max_score
-    if score.present? and task.present? and score > task.max_score
-      errors.add(:score, "must be less than or equal to the maximum score of #{task.max_score}")
-    end
+    return unless score.present? && task.present? && (score > task.max_score)
+
+    errors.add(:score, "must be less than or equal to the maximum score of #{task.max_score}")
   end
 end

@@ -1,5 +1,6 @@
-class StudentAttendancesController < ApplicationController
+# frozen_string_literal: true
 
+class StudentAttendancesController < ApplicationController
   def edit
     @schedule = Schedule.find(params[:id])
     @schedules = Schedule.order(:time)
@@ -14,7 +15,7 @@ class StudentAttendancesController < ApplicationController
     if params[:attendance_submitted]
       submitted_attendance_params = attendance_params || {}
 
-      Student.all.each do |student|
+      Student.find_each do |student|
         if submitted_attendance_params[student.id.to_s] == '1'
           StudentAttendance.find_or_create_by(schedule_id: @schedule.id, student_id: student.id)
         else
@@ -37,7 +38,7 @@ class StudentAttendancesController < ApplicationController
   end
 
   def previous_schedule(current_schedule)
-    Schedule.where("time < ?", current_schedule.time).order(time: :desc).first
+    Schedule.where(time: ...current_schedule.time).order(time: :desc).first
   end
 
   def next_schedule(current_schedule)

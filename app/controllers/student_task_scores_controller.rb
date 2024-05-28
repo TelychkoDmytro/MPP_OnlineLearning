@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class StudentTaskScoresController < ApplicationController
   before_action :set_task
   before_action :set_student_task_score, only: [:edit, :update]
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @student_task_score.update(student_task_score_params)
