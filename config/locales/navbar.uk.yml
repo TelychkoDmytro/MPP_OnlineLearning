@@ -1,0 +1,14 @@
+uk:
+    navbar:
+      coursecraft: "КурсКрафт"
+      all_subjects: "Усі предмети"
+      subjects: "Предмети"
+      schedule: "Розклад"
+      dropdown: "Випадаюче меню"
+      my_profile: "Мій профіль"
+      logout: "Вийти"
+      students: "Студенти"
+      groups: "Групи"
+      sign_out: "Вийти"
+      login: "Увійти"
+      register: "Зареєструватися"

@@ -1,8 +1,9 @@
 <div class="register-page">
-  <h1>Welcome to the Register Page</h1>
-  <p>Please choose your register type:</p>
+  <h1><%= t('register_page.welcome') %></h1>
+  <p><%= t('register_page.choose_register_type') %>:</p>
   <div class="button-container">
-    <%= link_to "I am a Student", new_student_registration_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "I am a Teacher", new_teacher_registration_path, class: "btn btn-large btn-secondary" %>
+    <%= link_to t('register_page.student'), new_student_registration_path, class: "btn btn-large btn-primary" %>
+    <%= link_to t('register_page.teacher'), new_teacher_registration_path, class: "btn btn-large btn-secondary" %>
   </div>
 </div>
+

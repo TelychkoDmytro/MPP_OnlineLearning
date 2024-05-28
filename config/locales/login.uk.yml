@@ -1,0 +1,6 @@
+uk:
+    login_page:
+      welcome: "Ласкаво просимо на сторінку входу"
+      choose_login_type: "Будь ласка, виберіть тип входу"
+      student: "Я студент"
+      teacher: "Я викладач"

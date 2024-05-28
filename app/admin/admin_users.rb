@@ -1,5 +1,8 @@
+<<<<<<< Updated upstream
 # frozen_string_literal: true
 
+=======
+>>>>>>> Stashed changes
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
 
@@ -26,4 +29,8 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 end

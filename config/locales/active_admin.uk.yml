@@ -1,0 +1,29 @@
+uk:
+  active_admin:
+    dashboard:
+      title: "Панель управління"
+    students:
+      title: "Студенти"
+    teachers:
+      title: "Вчителі"
+    groups:
+      title: "Групи"
+    subjects:
+      title: "Предмети"
+    tasks:
+      title: "Завдання"
+    schedules:
+      title: "Розклад"
+    group_schedules:
+      title: "Груповий розклад"
+    statistics:
+      title: "Статистика"
+      total_students: "Всього студентів"
+      total_teachers: "Всього вчителів"
+      total_groups: "Всього груп"
+      total_subjects: "Всього предметів"
+    recent_students: "Нещодавно додані студенти"
+    recent_teachers: "Нещодавно додані вчителі"
+    tasks_by_subject: "Завдання за предметами"
+    upcoming_schedules: "Майбутній розклад"
+    group_schedules: "Груповий розклад"
