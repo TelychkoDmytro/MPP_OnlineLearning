@@ -143,6 +143,7 @@
           <% if teacher_signed_in? %>
           <th>Actions</th>
           <th></th>
+          <th></th>
           <% end %>
         </tr>
       </thead>
@@ -173,6 +174,7 @@
             <div class="btn-group" role="group">
               <%= link_to "Edit", edit_schedule_path(schedule), class: "btn btn-success btn-sm" %>
               <%= button_to "Cancel", schedule, method: :delete, class: 'btn btn-danger btn-sm', onclick: "return confirm('Are you sure?');" %>
+              <%= link_to "Attendances", edit_attendances_schedule_path(schedule), class: "btn btn-info btn-sm" %>
             </div>
           </td>
           <td></td>

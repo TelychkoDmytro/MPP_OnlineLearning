@@ -13,6 +13,8 @@ class Schedule < ApplicationRecord
   validates :schedule_type, presence: true
   # validates :group_ids, presence: true
 
+  has_many :student_attendances, dependent: :destroy
+
   private
 
   def teacher_must_teach_subject

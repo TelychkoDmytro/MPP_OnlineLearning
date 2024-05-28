@@ -22,6 +22,8 @@ class Student < ApplicationRecord
 
   has_many :student_subject_opt_outs
 
+  has_many :student_attendances, dependent: :destroy
+
   def full_name
     "#{first_name} #{last_name}"
   end

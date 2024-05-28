@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Attendance</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    thead th {
+      background-color: #FFA500;
+      color: white;
+      text-align: center;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tbody td {
+      text-align: center;
+    }
+    .btn-primary {
+      background-color: #FFA500;
+      border-color: #FFA500;
+    }
+    .btn-primary:hover {
+      background-color: #FF8C00;
+      border-color: #FF8C00;
+    }
+    .navigation-arrows {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Manage Attendance for Schedule: <%= @schedule.time.strftime("%B %d, %Y %H:%M") %></h1>
+    </div>
+
+    <div class="navigation-arrows">
+      <% if @previous_schedule %>
+        <%= link_to "← Previous", edit_attendances_schedule_path(@previous_schedule), class: "btn btn-secondary" %>
+      <% else %>
+        <span></span>
+      <% end %>
+      <% if @next_schedule %>
+        <%= link_to "Next →", edit_attendances_schedule_path(@next_schedule), class: "btn btn-secondary" %>
+      <% else %>
+        <span></span>
+      <% end %>
+    </div>
+
+    <%= form_with(url: update_attendances_schedule_path(@schedule), method: :patch, local: true) do |form| %>
+      <!-- Hidden field to ensure form submission is detected -->
+      <%= hidden_field_tag :attendance_submitted, true %>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Present</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Student.all.each do |student| %>
+            <tr>
+              <td><%= student.first_name %> <%= student.last_name %></td>
+              <td>
+                <%= check_box_tag "attendance[#{student.id}]", 1, @schedule.student_attendances.exists?(student_id: student.id) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class="text-center">
+        <%= form.submit "Save Attendance", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

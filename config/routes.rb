@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # resources :student_subject_opt_outs
-  resources :schedules
+  resources :schedules do
+    member do
+      get 'edit_attendances', to: 'student_attendances#edit', as: 'edit_attendances'
+      patch 'update_attendances', to: 'student_attendances#update', as: 'update_attendances'
+    end
+  end
   resources :groups
   resources :subjects do
     resources :tasks
