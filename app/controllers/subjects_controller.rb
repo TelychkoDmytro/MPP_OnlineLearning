@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SubjectsController < ApplicationController
-  before_action :authenticate, except: [:index, :show, :all_subjects]
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, except: %i[index show all_subjects]
+  before_action :set_subject, only: %i[show edit update destroy]
 
   def index
     if student_signed_in?
@@ -24,13 +24,10 @@ class SubjectsController < ApplicationController
     @subject = Subject.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
-    if teacher_signed_in?
-      @subject = current_teacher.subjects.build(subject_params)
-    end
+    @subject = current_teacher.subjects.build(subject_params) if teacher_signed_in?
 
     if @subject.save
       redirect_to @subject, notice: 'Subject was successfuly created'
@@ -59,8 +56,8 @@ class SubjectsController < ApplicationController
   end
 
   def authenticate
-    unless teacher_signed_in?
-      authenticate_teacher!
-    end
+    return if teacher_signed_in?
+
+    authenticate_teacher!
   end
 end

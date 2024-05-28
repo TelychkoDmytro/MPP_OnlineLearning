@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_task, except: [:index, :new, :create]
+  before_action :set_task, except: %i[index new create]
   before_action :authenticate
 
   def index
@@ -9,8 +9,7 @@ class TasksController < ApplicationController
     @tasks = @subject.tasks
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @subject = Subject.find(params[:subject_id])
@@ -18,15 +17,14 @@ class TasksController < ApplicationController
     @task.subject = @subject
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @subject = Subject.find(params[:subject_id])
     @task = Task.new(task_params)
     @task.subject = @subject
     if @task.save
-      redirect_to subject_task_path(@subject, @task), notice: "Task was successfully craete."
+      redirect_to subject_task_path(@subject, @task), notice: 'Task was successfully craete.'
     else
       render :new
     end
@@ -43,9 +41,9 @@ class TasksController < ApplicationController
   end
 
   def authenticate
-    unless teacher_signed_in? or student_signed_in?
-      flash[:notice] = "You need to sign in as a teacher to access this page"
-      redirect_to new_teacher_session_path
-    end
+    return if teacher_signed_in? || student_signed_in?
+
+    flash[:notice] = 'You need to sign in as a teacher to access this page'
+    redirect_to new_teacher_session_path
   end
 end

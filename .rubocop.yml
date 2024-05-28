@@ -13,7 +13,7 @@ AllCops:
     - 'bin/*'
     - 'node_modules//*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 3.2.2
 
 # Layout cops
 Layout/LineLength:
@@ -21,6 +21,10 @@ Layout/LineLength:
 
 Layout/TrailingWhitespace:
   Enabled: true
+
+Layout/EndOfLine:
+  Enabled: false
+
 
 # Style cops
 Style/FrozenStringLiteralComment:
@@ -50,6 +54,8 @@ Rails/LexicallyScopedActionFilter:
 
 Rails/HasManyOrHasOneDependent:
   Enabled: false
+
+
 
 # Exclude specific cops or categories of cops
 # For Rails/HasAndBelongsToMany offense

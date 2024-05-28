@@ -427,4 +427,4 @@ Style/WordArray:
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 198
+  Max: 140

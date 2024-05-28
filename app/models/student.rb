@@ -24,19 +24,26 @@ class Student < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  private
-
   def check_if_head_student
-    if group&.head_student == self
-      errors.add(:base, "Cannot remove the head student from the group")
-      throw :abort
-    end
+    return unless group&.head_student == self
+
+    errors.add(:base, 'Cannot remove the head student from the group')
+    throw :abort
   end
 
   def check_if_removing_from_group
-    if group_id_changed? && group_id_was && Group.find(group_id_was).head_student == self
-      errors.add(:base, "Cannot change the group of the head student directly")
-      throw :abort
-    end
+    return unless group_id_changed? && group_id_was && Group.find(group_id_was).head_student == self
+
+    errors.add(:base, 'Cannot change the group of the head student directly')
+    throw :abort
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ["avatar_attachment", "avatar_blob", "group", "profile"]
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    ["city", "country", "created_at", "email", "encrypted_password", "first_name", "group_id", "id", "last_name", "remember_created_at",
+     "reset_password_sent_at", "reset_password_token", "updated_at"]
   end
 end

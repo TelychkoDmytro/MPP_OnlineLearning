@@ -1,135 +1,132 @@
 # frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 
 
-class Students::RegistrationsController < Devise::RegistrationsController
-  before_action :fetch_weather, only: [:edit, :edit_weather]
-  before_action :set_country_and_city, only: [:create, :edit_weather]
+module Students
+  class RegistrationsController < Devise::RegistrationsController
+    before_action :fetch_weather, only: %i[edit edit_weather]
+    before_action :set_country_and_city, only: %i[create edit_weather]
 
-  def edit
-    @student = current_student
-  end
-
-  def edit_weather
-    @student = current_student
-    render :edit
-  end
-
-  def create
-    super do |resource|
-      resource.country = @country
-      resource.city = @city
-      resource.save
+    def edit
+      @student = current_student
     end
-  end
 
-  private
-
-  def fetch_weather
-    if current_student.city.present?
-      units = params[:units] || 'metric'
-      @weather = get_weather(current_student.city, units)
-      Rails.logger.info "Weather data fetched: #{@weather.inspect}"
-    else
-      @weather = nil
-      Rails.logger.info "City not present for current student"
+    def edit_weather
+      @student = current_student
+      render :edit
     end
-  end
 
-  def get_weather(city, units)
-    begin
-      OpenWeatherClient.current_weather(city: city, units: units)
+    def create
+      super do |resource|
+        resource.country = @country
+        resource.city = @city
+        resource.save
+      end
+    end
+
+    private
+
+    def fetch_weather
+      if current_student.city.present?
+        units = params[:units] || 'metric'
+        @weather = get_weather(current_student.city, units)
+        Rails.logger.info "Weather data fetched: #{@weather.inspect}"
+      else
+        @weather = nil
+        Rails.logger.info 'City not present for current student'
+      end
+    end
+
+    def get_weather(city, units)
+      OpenWeatherClient.current_weather(city:, units:)
     rescue StandardError => e
       Rails.logger.error "Failed to fetch weather data: #{e.message}"
       nil
     end
-  end
 
-  def set_country_and_city
-    ip = request.remote_ip
-    @country = fetch_country_from_ip(ip)
-    @city = fetch_city_from_ip(ip)
-  end
+    def set_country_and_city
+      ip = request.remote_ip
+      @country = fetch_country_from_ip(ip)
+      @city = fetch_city_from_ip(ip)
+    end
 
-  def fetch_country_from_ip(ip)
-    begin
+    def fetch_country_from_ip(ip)
       response = Net::HTTP.get(URI("https://ipinfo.io/#{ip}/json"))
       json = JSON.parse(response)
       json['country']
-    rescue
+    rescue StandardError
       nil
     end
-  end
 
-  def fetch_city_from_ip(ip)
-    begin
+    def fetch_city_from_ip(ip)
       response = Net::HTTP.get(URI("https://ipinfo.io/#{ip}/json"))
       json = JSON.parse(response)
       json['city']
-    rescue
+    rescue StandardError
       nil
     end
+
+
+
+    # before_action :configure_sign_up_params, only: [:create]
+    # before_action :configure_account_update_params, only: [:update]
+
+    # GET /resource/sign_up
+    # def new
+    #   super
+    # end
+
+    # POST /resource
+    # def create
+    #   super
+    # end
+
+    # GET /resource/edit
+    # def edit
+    #   super
+    # end
+
+    # PUT /resource
+    # def update
+    #   super
+    # end
+
+    # DELETE /resource
+    # def destroy
+    #   super
+    # end
+
+    # GET /resource/cancel
+    # Forces the session data which is usually expired after sign
+    # in to be expired now. This is useful if the user wants to
+    # cancel oauth signing in/up in the middle of the process,
+    # removing all OAuth session data.
+    # def cancel
+    #   super
+    # end
+
+    # protected
+
+    # If you have extra params to permit, append them to the sanitizer.
+    # def configure_sign_up_params
+    #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+    # end
+
+    # If you have extra params to permit, append them to the sanitizer.
+    # def configure_account_update_params
+    #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+    # end
+
+    # The path used after sign up.
+    # def after_sign_up_path_for(resource)
+    #   super(resource)
+    # end
+
+    # The path used after sign up for inactive accounts.
+    # def after_inactive_sign_up_path_for(resource)
+    #   super(resource)
+    # end
   end
-
-
-
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
-
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
-
-  # POST /resource
-  # def create
-  #   super
-  # end
-
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
-
-  # PUT /resource
-  # def update
-  #   super
-  # end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
-
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
 end

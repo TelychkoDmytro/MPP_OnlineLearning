@@ -1,35 +1,33 @@
 # frozen_string_literal: true
 
 class SchedulesController < ApplicationController
-  before_action :authenticate_teacher, only: [:edit, :new, :destroy]
-  before_action :atuhencticate, except: [:index, :show]
-  before_action :set_schedule, only: [:show, :edit, :update, :destroy]
-  
+  before_action :authenticate_teacher, only: %i[edit new destroy]
+  before_action :atuhencticate, except: %i[index show]
+  before_action :set_schedule, only: %i[show edit update destroy]
+
 
   def index
     @schedules = Schedule.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @schedule = Schedule.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     Rails.logger.info "Schedule Params: #{params[:schedule].inspect}"
 
     @schedule = Schedule.new(schedule_params)
-    
+
     Rails.logger.info "Schedule After Init: #{@schedule.inspect}"
 
     if @schedule.save
       Rails.logger.info "Schedule Saved: #{@schedule.inspect}"
-      redirect_to schedules_path, notice: "Schedule was successfully created."
+      redirect_to schedules_path, notice: 'Schedule was successfully created.'
     else
       Rails.logger.info "Schedule Save Errors: #{@schedule.errors.full_messages}"
       render :new
@@ -45,9 +43,9 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    if @schedule.destroy
-      redirect_to @schedule, notice: 'Schedule was canceled'
-    end
+    return unless @schedule.destroy
+
+    redirect_to @schedule, notice: 'Schedule was canceled'
   end
 
 
@@ -62,14 +60,14 @@ class SchedulesController < ApplicationController
   end
 
   def atuhencticate
-    unless student_signed_in? or teacher_signed_in?
-      redirect_to login_path, notice: "You need to be signed in"
-    end
+    return if student_signed_in? || teacher_signed_in?
+
+    redirect_to login_path, notice: 'You need to be signed in'
   end
 
   def authenticate_teacher
     if student_signed_in?
-      flash[:alert] = "Access denied. Only teachers can create and add schedules"
+      flash[:alert] = 'Access denied. Only teachers can create and add schedules'
       redirect_to schedules_path
     elsif !teacher_signed_in?
       authenticate_teacher!

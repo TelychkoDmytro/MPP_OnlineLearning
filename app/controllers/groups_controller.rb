@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: %i[show edit update destroy]
   before_action :authenticate, except: [:show]
   before_action :check_rights, only: [:show]
-  
+
   def index
-    if teacher_signed_in?
-      @groups = Group.joins(:subjects).where(subjects: {id: current_teacher.subject_ids} ).distinct
-    end
+    return unless teacher_signed_in?
+
+    @groups = Group.joins(:subjects).where(subjects: { id: current_teacher.subject_ids }).distinct
   end
 
   def show
@@ -20,8 +20,7 @@ class GroupsController < ApplicationController
     @students = Student.all
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @group = Group.all.build(group_params)
@@ -43,9 +42,9 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    if @group.destroy
-      redirect_to @group, notice: 'Group was deleted'
-    end
+    return unless @group.destroy
+
+    redirect_to @group, notice: 'Group was deleted'
   end
 
   private
@@ -60,20 +59,20 @@ class GroupsController < ApplicationController
 
   def authenticate
     if student_signed_in?
-      flash[:alert] = "Access denied"
+      flash[:alert] = 'Access denied'
       redirect_to root_path
     elsif teacher_signed_in?
       authenticate_teacher!
     else
-      flash[:notice] = "You need to sign in as a teacher to access this page"
+      flash[:notice] = 'You need to sign in as a teacher to access this page'
       redirect_to new_teacher_session_path
     end
   end
 
   def check_rights
-    unless student_signed_in? or teacher_signed_in?
-      flash[:notice] = "You need to sign in to access this page"
-      redirect_to login_path
-    end
+    return if student_signed_in? || teacher_signed_in?
+
+    flash[:notice] = 'You need to sign in to access this page'
+    redirect_to login_path
   end
 end

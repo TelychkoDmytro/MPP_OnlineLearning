@@ -23,15 +23,22 @@ class Teacher < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  private
-
   def custom_email_validation
     # Define your regex pattern here
     regex = /\A[^@\s]+@karazin\.ua\z/
-    
+
     # Replace `email` with the attribute you want to validate
-    unless email.match?(regex)
-      errors.add(:email, "must be an karazin.ua email address")
-    end
+    return if email.match?(regex)
+
+    errors.add(:email, 'must be an karazin.ua email address')
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ["schedules", "subject_teacher", "subjects"]
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    ["city", "country", "created_at", "email", "encrypted_password", "first_name", "id", "last_name", "remember_created_at", "reset_password_sent_at", 
+     "reset_password_token", "updated_at"]
   end
 end

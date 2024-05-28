@@ -35,10 +35,11 @@
 #       runner: go run
 
 
-#Run rubocop in pre-commit
+
 pre-commit:
   parallel: true
   commands:
     rubocop:
-      files: ".*\\.rb$"
-      run: "bundle exec rubocop -A"
+      run: "bundle exec rubocop"
+      include: "*.rb"
+
